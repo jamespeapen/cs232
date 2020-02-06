@@ -1,0 +1,9 @@
+1. 1024
+2. reg0, reg1, reg2
+3. args: register value; jump if less than 0
+4. whenever cpu._run_program is called
+5. display memory from start to end
+6. toggle debugging on and off during run
+7. It can have comments and blank lines.
+8. Monitor._write_program 
+9. Yes
