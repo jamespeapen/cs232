@@ -11,7 +11,7 @@ import threading   # for CPU
 DELAY_BETWEEN_INSTRUCTIONS = 0.2
 
 class CPU(threading.Thread):
-    def __init__(self, ram, os, startAddr, debug, num=0):
+    def __init__(self, ram, os, startAddr, debug, num=0, batchMode=False):
         threading.Thread.__init__(self)
 
         self._num = num   # unique ID of this cpu
@@ -25,6 +25,7 @@ class CPU(threading.Thread):
         self._ram = ram
         self._os = os
         self._debug = debug
+        self._batch_mode = batchMode 
 
         # TODO: need to protect these next two variables as they are shared
         # between the CPU thread and the device threads.
