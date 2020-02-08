@@ -118,8 +118,8 @@ class Monitor:
                 elif instr.upper().startswith('D '):
                     self._poke_ram(arg1)
                 elif instr.upper().startswith('R'):
-                    #self._run_batch_programs(arg1)
-                    print("function not implemented")
+                   self._run_batch_programs(arg1)
+                    #print("function not implemented")
                 elif instr.upper().startswith('X '):
                     self._run_program(arg1)
                 elif instr.upper().startswith('L '):
