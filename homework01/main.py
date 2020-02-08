@@ -86,6 +86,7 @@ class Monitor:
                 if instr == '?':
                     print("C <addr>: put code into RAM starting at addr")
                     print("D <addr>: put data values into RAM starting at addr")
+                    print("r <addr>: run programs from RAM starting at addr")
                     print("S <start> <end>: show memory from start to end")
                     print("X <addr>: execute program starting at addr")
                     print("L <addr> <tapename>: load a program from tape to bytes starting at addr")
@@ -116,6 +117,9 @@ class Monitor:
                     self._dump_ram(arg1, endaddr)
                 elif instr.upper().startswith('D '):
                     self._poke_ram(arg1)
+                elif instr.upper().startswith('R'):
+                    #self._run_batch_programs(arg1)
+                    print("function not implemented")
                 elif instr.upper().startswith('X '):
                     self._run_program(arg1)
                 elif instr.upper().startswith('L '):
