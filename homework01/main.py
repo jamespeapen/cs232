@@ -186,8 +186,8 @@ class Monitor:
         self._cpu.start()		# call run()
         self._cpu.join()		# wait for it to end
 
-    def _run_batch_programs(self, addr):
-        self._cpu = CPU(self._ram, calos.CalOS(), addr, self._debug, True)
+    def _run_batch_programs(self, batch_addr):
+        self._cpu = CPU(self._ram, calos.CalOS(), batch_addr, self._debug, True)
         self._cpu.start()
         self._cpu.join()
 
