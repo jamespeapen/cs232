@@ -83,7 +83,16 @@ class CPU(threading.Thread):
                                                       self._ram[self._registers['pc']]))
             if not self.parse_instruction(self._ram[self._registers['pc']]):
                 # False means an error occurred or the program ended, so return
-                break
+                if self._batchMode & self._registers['pc']+1 > 0:
+                    self._registers = {
+                        'reg0' : 0,
+                        'reg1' : 0,
+                        'reg2' : 0,
+                        'pc': self._registers['pc']+1 
+                        }
+                    continue
+                else:
+                    break
             # print CPU state
             if self._debug: print(self)
 
