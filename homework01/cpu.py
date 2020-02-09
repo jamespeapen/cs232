@@ -13,7 +13,6 @@ DELAY_BETWEEN_INSTRUCTIONS = 0.2
 class CPU(threading.Thread):
     def __init__(self, ram, os, startAddr, debug, num=0, batchMode=False):
         threading.Thread.__init__(self)
-        print(batchMode)
         self._num = num   # unique ID of this cpu
         self._registers = {
             'reg0' : 0,
@@ -27,8 +26,9 @@ class CPU(threading.Thread):
         self._debug = debug
         self._batch_mode = batchMode 
         if self._batch_mode:
-            print("batch")
-            self._registers['pc'] = self._ram[startAddr]
+            self._batch_program_iterator = startAddr
+            print(self._ram[startAddr])
+            self._registers['pc'] = self._ram[self._batch_program_iterator]
 
         # TODO: need to protect these next two variables as they are shared
         # between the CPU thread and the device threads.
@@ -86,13 +86,14 @@ class CPU(threading.Thread):
                                                       self._ram[self._registers['pc']]))
             if not self.parse_instruction(self._ram[self._registers['pc']]):
                 # False means an error occurred or the program ended, so return
-                if self._batch_mode & self._registers['pc']+1 > 0:
+                if self._batch_mode & self._batch_program_iterator + 1 > 0:
                     self._registers = {
                         'reg0' : 0,
                         'reg1' : 0,
                         'reg2' : 0,
-                        'pc': self._registers['pc']+1 
+                        'pc': self._ram[self._batch_program_iterator+1]
                         }
+                    self._batch_program_iterator += 1
                     continue
                 else:
                     break
