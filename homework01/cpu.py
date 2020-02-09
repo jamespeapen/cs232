@@ -25,6 +25,7 @@ class CPU(threading.Thread):
         self._os = os
         self._debug = debug
         self._batch_mode = batchMode 
+        self._batch_program_iterator = 0
         if self._batch_mode:
             self._batch_program_iterator = startAddr
             print(self._ram[startAddr])
