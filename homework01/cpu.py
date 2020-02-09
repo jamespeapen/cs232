@@ -25,11 +25,11 @@ class CPU(threading.Thread):
         self._os = os
         self._debug = debug
         self._batch_mode = batchMode 
-        self._batch_program_iterator = 0
         if self._batch_mode:
             self._batch_program_iterator = startAddr
-            print(self._ram[startAddr])
             self._registers['pc'] = self._ram[self._batch_program_iterator]
+        else:
+            self._batch_program_iterator = 0
 
         # TODO: need to protect these next two variables as they are shared
         # between the CPU thread and the device threads.
