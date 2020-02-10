@@ -2,6 +2,9 @@
 
 @author Victor Norman
 @date 12/26/17
+
+@author James Eapen (jpe4)
+@date 2019 Feb 12
 '''
 
 import time
@@ -24,10 +27,12 @@ class CPU(threading.Thread):
         self._ram = ram
         self._os = os
         self._debug = debug
-        self._batch_mode = batch_mode 
+        self._batch_mode = batch_mode   #set the cpu in batch mode 
+
+        # if in batch mode, set the pc to the location of the first program
         if self._batch_mode:
             self._batch_program_iterator = startAddr
-            self._registers['pc'] = self._ram[self._batch_program_iterator]
+            self._registers['pc'] = self._ram[self._batch_program_iterator]     
         else:
             self._batch_program_iterator = 0
 
@@ -87,6 +92,9 @@ class CPU(threading.Thread):
                                                       self._ram[self._registers['pc']]))
             if not self.parse_instruction(self._ram[self._registers['pc']]):
                 # False means an error occurred or the program ended, so return
+
+                # if in batch mode, check if there is another program to run,
+                # reset the registers, increment the pc to the next program location
                 if self._batch_mode & self._batch_program_iterator + 1 > 0:
                     self._registers = {
                         'reg0' : 0,
