@@ -5,6 +5,7 @@
 
 @author James Eapen (jpe4)
 @date 2019 Feb 12
+@changelog: implemented batch mode support
 '''
 
 import time
@@ -13,34 +14,36 @@ import threading   # for CPU
 # Time to delay between executing instructions, in seconds.
 DELAY_BETWEEN_INSTRUCTIONS = 0.2
 
+
 class CPU(threading.Thread):
-    def __init__(self, ram, os, startAddr, debug, num=0, batch_mode=False):
+    def __init__(self, ram, os, startAddr, debug, batch_mode, num=0):
         threading.Thread.__init__(self)
         self._num = num   # unique ID of this cpu
         self._registers = {
-            'reg0' : 0,
-            'reg1' : 0,
-            'reg2' : 0,
-            'pc': startAddr
-            }
+            'reg0': 0,
+            'reg1': 0,
+            'reg2': 0,
+            #            'pc': startAddr
+        }
 
         self._ram = ram
         self._os = os
         self._debug = debug
-        self._batch_mode = batch_mode   #set the cpu in batch mode 
+        self._batch_mode = batch_mode  # set the cpu in batch mode
 
         # if in batch mode, set the pc to the location of the first program
         if self._batch_mode:
             self._batch_program_iterator = startAddr
-            self._registers['pc'] = self._ram[self._batch_program_iterator]     
+            self._registers['pc'] = self._ram[self._batch_program_iterator]
         else:
             self._batch_program_iterator = 0
+            self._registers['pc'] = startAddr
 
         # TODO: need to protect these next two variables as they are shared
         # between the CPU thread and the device threads.
         self._intr_raised = False
         self._intr_addrs = set()
-        
+
         self._intr_vector = [self._kbrd_isr,
                              self._screen_isr]
 
@@ -82,49 +85,51 @@ class CPU(threading.Thread):
 
     def run(self):
         '''Overrides run() in thread.  Called by calling start().'''
-        self._run_program()
-        
+        # if in batch mode, check if there is another program to run,
+        # reset the registers, increment the pc to the next program location
+        if self._batch_mode:
+            while self._ram[self._batch_program_iterator] != 0:
+                self._run_program()
+                self._registers['reg0'] = 0
+                self._registers['reg1'] = 0
+                self._registers['reg2'] = 0
+                self._registers['pc'] = self._ram[self._batch_program_iterator+1]
+                self._batch_program_iterator += 1
+
+        # run in single program execution mode
+        else:
+            self._run_program()
 
     def _run_program(self):
         while True:
             if self._debug:
                 print("Executing code at [%d]: %s" % (self._registers['pc'],
                                                       self._ram[self._registers['pc']]))
+            # False means an error occurred or the program ended, so return
             if not self.parse_instruction(self._ram[self._registers['pc']]):
-                # False means an error occurred or the program ended, so return
-
-                # if in batch mode, check if there is another program to run,
-                # reset the registers, increment the pc to the next program location
-                if self._batch_mode & self._batch_program_iterator + 1 > 0:
-                    self._registers = {
-                        'reg0' : 0,
-                        'reg1' : 0,
-                        'reg2' : 0,
-                        'pc': self._ram[self._batch_program_iterator+1]
-                        }
-                    self._batch_program_iterator += 1
-                    continue
-                else:
-                    break
+                break
+            
             # print CPU state
-            if self._debug: print(self)
+            if self._debug:
+                print(self)
 
             # Now, check if an interrupt has been raised.  If it has, run the
             # corresponding handler(s).
             # TODO: critical section below!
             if self._intr_raised:
-                if self._debug: print("GOT INTERRUPT")
+                if self._debug:
+                    print("GOT INTERRUPT")
                 self.backup_registers()
                 for addr in sorted(self._intr_addrs):
                     # Call the interrupt handler.
                     self._intr_vector[addr]()
                     # Remove the device address from the list of pending interrupts.
                     self._intr_addrs.remove(addr)
-                
+
                 # Mark all interrupts handled.
                 self.restore_registers()
                 self.set_interrupt(False)  # clear the interrupt
-            
+
             time.sleep(DELAY_BETWEEN_INSTRUCTIONS)
 
     def parse_instruction(self, instr):
@@ -135,7 +140,7 @@ class CPU(threading.Thread):
         if isinstance(instr, int):
             print("ERROR: Not an instruction: {}".format(instr))
             return False
-            
+
         instr = instr.replace(",", "")
         words = instr.split()
         instr = words[0]
@@ -147,7 +152,7 @@ class CPU(threading.Thread):
 
         if instr == "call":
             # Call a python function.  Syntax is
-            # call fname.  Function fname is a method in 
+            # call fname.  Function fname is a method in
             # CalOS class and is called with the values in reg0, reg1, and reg2.
             self.handle_call(dst)
             self._registers['pc'] += 1
@@ -173,16 +178,16 @@ class CPU(threading.Thread):
         elif instr == 'end':
             return False
         return True
-        
 
     # TODO: do error checking in all these.
     # Could check for illegal addresses, etc.
+
     def handle_jmp(self, dst):
         if self.isregister(dst):
             self._registers['pc'] = self._registers[dst]
         else:
             self._registers['pc'] = eval(dst)
-        
+
     def handle_jez(self, src, dst):
         if not self.isregister(src):
             print("Illegal instruction")
@@ -194,7 +199,7 @@ class CPU(threading.Thread):
                 self._registers['pc'] = eval(dst)
         else:
             self._registers['pc'] += 1
-            
+
     def handle_jnz(self, src, dst):
         if not self.isregister(src):
             print("Illegal instruction")
@@ -206,7 +211,7 @@ class CPU(threading.Thread):
                 self._registers['pc'] = eval(dst)
         else:
             self._registers['pc'] += 1
-            
+
     def handle_jlz(self, src, dst):
         if not self.isregister(src):
             print("Illegal instruction")
@@ -218,7 +223,7 @@ class CPU(threading.Thread):
                 self._registers['pc'] = eval(dst)
         else:
             self._registers['pc'] += 1
-            
+
     def handle_jgz(self, src, dst):
         if not self.isregister(src):
             print("Illegal instruction")
@@ -247,7 +252,6 @@ class CPU(threading.Thread):
             return eval(src)    # handles decimal and hex values.
             # TODO: does the above handle putting strings in memory too?  It should
             # allow single characters, perhaps.
-
 
     def handle_mov(self, src, dst):
         '''move value from a src to a dst.  src can be one of:
@@ -288,7 +292,6 @@ class CPU(threading.Thread):
         else:   # assume dst holds a literal value
             self._ram[eval(dst)] += srcval
 
-                 
     def handle_sub(self, src, dst):
         srcval = self._get_srcval(src)
 
@@ -306,14 +309,12 @@ class CPU(threading.Thread):
     def handle_call(self, fname):
         self._os.syscall(fname, self._reg0, self._reg1, self._reg2)
 
-
     def _kbrd_isr(self):
         # Read the value from the register in ram.
         key = self._ram[999]
         # Clear the data-in register
         self._ram[999] = 0
         print("Keyboard interrupt detected! location 999 holds", key)
-        
 
     def _screen_isr(self):
         print("Screen interrupt detected!")

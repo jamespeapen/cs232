@@ -3,6 +3,10 @@ alter RAM, start the CPU, etc.
 
 @author Victor Norman
 @date 12/26/17
+
+@author: James Eapen (jpe4)
+@date: 2019 Feb 10
+@changelog: implemented batch mode support
 '''
 
 
@@ -118,10 +122,9 @@ class Monitor:
                 elif instr.upper().startswith('D '):
                     self._poke_ram(arg1)
                 elif instr.upper().startswith('R'):
-                   self._run_batch_programs(arg1)
-                    #print("function not implemented")
+                   self._run_program(arg1, True)
                 elif instr.upper().startswith('X '):
-                    self._run_program(arg1)
+                    self._run_program(arg1, False)
                 elif instr.upper().startswith('L '):
                     try:
                         tapename = instr.split()[2]
@@ -179,19 +182,12 @@ class Monitor:
                 addr += 1
         print("Tape written from %d to %d" % (startaddr, addr - 1))
 
-    def _run_program(self, addr):
+    def _run_program(self, addr, batch_mode):
         # creates a new thread, passing in ram, the os, and the
-        # starting address
-        self._cpu = CPU(self._ram, calos.CalOS(), addr, self._debug)
+        # starting address and whether batch mode is needed
+        self._cpu = CPU(self._ram, calos.CalOS(), addr, self._debug, batch_mode)
         self._cpu.start()		# call run()
         self._cpu.join()		# wait for it to end
-
-    def _run_batch_programs(self, batch_addr):
-        # runs a new thread, passing in ram, the os, location of the first address, 
-        # sets batch mode to true
-        self._cpu = CPU(self._ram, calos.CalOS(), batch_addr, self._debug, batch_mode=True)
-        self._cpu.start()
-        self._cpu.join()
 
     def _enter_program(self, starting_addr):
         # TODO: must make sure we enter program starting on even boundary.
