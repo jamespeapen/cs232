@@ -4,17 +4,23 @@
  * * source file must exist and destination file must not exist
  * @author: James Eapen (jpe4)
  * @data: 2020 Feb 11
+ * 
+ * * citations:
+ *      https://codeforwin.org/2018/02/c-program-to-copy-file.html
+ *      https://www.tutorialspoint.com/cprogramming/c_strings.html
+ *      https://www.tutorialspoint.com/cprogramming/c_command_line_arguments.html
  */
 
 #include <stdio.h>
 // TODO: std lib 
 
 /** 
- * Main function
+ * Copy function
  * @param param argc the number of arguments
  * @param argvp[] an array with the arguments supplied
  */
 int main(int argc, char *argv[])
 {
-    
+    // TODO get arguments from argv[]
+    // TODO set a file path variable with non-determined size
 }
