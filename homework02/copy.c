@@ -22,10 +22,12 @@
 int main(int argc, char *argv[])
 {
 	// TODO get arguments from argv[]
-	if (argc < 2)
+	if (argc < 3)
 	{
 		printf("%d\n", argc);
-		printf("%s", "missing parameters, copy src dest");
+		printf("%s\n", "missing parameters");
+		printf("%s", "USAGE: copy source_file destination_file");
+		return 0;
 	}
 
 	for (int i = 0; i < argc; i++)
