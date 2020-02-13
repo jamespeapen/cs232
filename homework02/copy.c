@@ -41,20 +41,20 @@ int main(int argc, char *argv[])
 	{
 		perror("missing parameters");
 		perror("USAGE: copy source_file destination_file");
-		exit(1);
+		return(-1);
 	}
 	else if (argc < 2)
 	{
 		perror("missing destination filename");
 		perror("USAGE: copy source_file destination_file");
-		exit(1);
+		return(-1);
 	}
 
 	else if (argc > 3)
 	{
 		perror("too many arguments");
 		perror("USAGE: copy source_file destination_file");
-		exit(1);
+		return(-1);
 	}
 	
 	src = argv[1];
@@ -65,7 +65,7 @@ int main(int argc, char *argv[])
 	{
 		perror(src);
 		perror(": file not found");
-		exit(1);
+		return(-1);
 	}
 
 	// check if dest file already exists
@@ -73,7 +73,7 @@ int main(int argc, char *argv[])
 	{
 		perror(dest);
 		perror(": file already exists");
-		exit(1);
+		return(-1);
 	}
 
 }
