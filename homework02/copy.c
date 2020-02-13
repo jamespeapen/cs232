@@ -12,6 +12,7 @@
  */
 
 #include <stdio.h>
+#include <unistd.h>
 // TODO: std lib
 
 /** 
@@ -19,22 +20,60 @@
  * @param param argc the number of arguments
  * @param argvp[] an array with the arguments supplied
  */
+
+//check if file exists
+const int fileExists(const char *filename)
+{
+	if (access(filename, F_OK) != -1)	
+	{
+		return 1;	
+	}
+	return 0;
+}
+
 int main(int argc, char *argv[])
 {
-	const char *src = NULL;
-	const char *dest = NULL;
+	const char *src = NULL;		//store source filename
+	const char *dest = NULL;	//store destination filename
 	
-	if (argc < 3)
+	// usage errors
+	if (argc < 2)
 	{
 		printf("%d\n", argc);
 		printf("%s\n", "missing parameters");
-		printf("%s", "USAGE: copy source_file destination_file");
+		printf("%s\n", "USAGE: copy source_file destination_file");
+		return 0;
+	}
+	else if (argc < 2)
+	{
+		printf("%d\n", argc);
+		printf("%s\n", "missing destination filename");
+		printf("%s\n", "USAGE: copy source_file destination_file");
 		return 0;
 	}
 
+	else if (argc > 3)
+	{
+		printf("%s\n", "too many arguments");
+		printf("%s\n", "USAGE: copy source_file destination_file");
+	}
+	
 	src = argv[1];
 	dest = argv[2];
-	printf("%s\n", src);
-	printf("%s\n", dest);
+
+	//check if source file exists
+	if (!fileExists(src))
+	{
+		printf("%s", src);
+		printf("%s\n", ": file not found");
+		return 0;
+	}
+
+	if (fileExists(dest))
+	{
+		printf("%s", dest);
+		printf("%s\n", ": file already exists");
+	}
 
 }
+
