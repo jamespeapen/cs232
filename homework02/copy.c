@@ -12,7 +12,7 @@
  */
 
 #include <stdio.h>
-// TODO: std lib 
+// TODO: std lib
 
 /** 
  * Copy function
@@ -21,14 +21,14 @@
  */
 int main(int argc, char *argv[])
 {
-    // TODO get arguments from argv[]
-	if (argc < 2) 
+	// TODO get arguments from argv[]
+	if (argc < 2)
 	{
 		printf("%d\n", argc);
 		printf("%s", "missing parameters, copy src dest");
 	}
 
-	for (int i=0; i<argc; i++)
-	         printf("%s\n", argv[i]);  	
-    // TODO set a file path variable with non-determined size
+	for (int i = 0; i < argc; i++)
+		printf("%s\n", argv[i]);
+	// TODO set a file path variable with non-determined size
 }
