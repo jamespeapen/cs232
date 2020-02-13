@@ -13,7 +13,7 @@
 
 #include <stdio.h>
 #include <unistd.h>
-// TODO: std lib
+#include <stdlib.h>
 
 /** 
  * Copy function
@@ -42,20 +42,21 @@ int main(int argc, char *argv[])
 		printf("%d\n", argc);
 		printf("%s\n", "missing parameters");
 		printf("%s\n", "USAGE: copy source_file destination_file");
-		return 0;
+		exit(1);
 	}
 	else if (argc < 2)
 	{
 		printf("%d\n", argc);
 		printf("%s\n", "missing destination filename");
 		printf("%s\n", "USAGE: copy source_file destination_file");
-		return 0;
+		exit(1);
 	}
 
 	else if (argc > 3)
 	{
 		printf("%s\n", "too many arguments");
 		printf("%s\n", "USAGE: copy source_file destination_file");
+		exit(1);
 	}
 	
 	src = argv[1];
@@ -66,13 +67,15 @@ int main(int argc, char *argv[])
 	{
 		printf("%s", src);
 		printf("%s\n", ": file not found");
-		return 0;
+		exit(1);
 	}
 
+	// check if dest file already exists
 	if (fileExists(dest))
 	{
 		printf("%s", dest);
 		printf("%s\n", ": file already exists");
+		exit(1);
 	}
 
 }
