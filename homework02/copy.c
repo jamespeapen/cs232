@@ -31,32 +31,33 @@ const int fileExists(const char *filename)
 	return 0;
 }
 
+int argumentCheck(int argc, char *argv[])
+{
+
+	if (argc < 2)
+	{
+		perror("missing parameters");
+		perror("USAGE: copy source_file destination_file");
+		exit(-1);
+		//return 0;
+	}
+
+	//check if destination file was input
+	if (argv[2] == NULL)
+	{
+		perror("missing destination filename");
+		return 0;
+	}	
+
+	return 1;
+}
+
 int main(int argc, char *argv[])
 {
 	const char *src = NULL;		//store source filename
 	const char *dest = NULL;	//store destination filename
 	
-	// usage errors
-	if (argc < 2)
-	{
-		perror("missing parameters");
-		perror("USAGE: copy source_file destination_file");
-		return(-1);
-	}
-	else if (argc < 2)
-	{
-		perror("missing destination filename");
-		perror("USAGE: copy source_file destination_file");
-		return(-1);
-	}
-
-	else if (argc > 3)
-	{
-		perror("too many arguments");
-		perror("USAGE: copy source_file destination_file");
-		return(-1);
-	}
-	
+	argumentCheck(argc, argv);
 	src = argv[1];
 	dest = argv[2];
 
