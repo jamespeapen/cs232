@@ -21,7 +21,9 @@
  */
 int main(int argc, char *argv[])
 {
-	// TODO get arguments from argv[]
+	const char *src = NULL;
+	const char *dest = NULL;
+	
 	if (argc < 3)
 	{
 		printf("%d\n", argc);
@@ -30,7 +32,9 @@ int main(int argc, char *argv[])
 		return 0;
 	}
 
-	for (int i = 0; i < argc; i++)
-		printf("%s\n", argv[i]);
-	// TODO set a file path variable with non-determined size
+	src = argv[1];
+	dest = argv[2];
+	printf("%s\n", src);
+	printf("%s\n", dest);
+
 }
