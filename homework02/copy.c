@@ -31,7 +31,7 @@ const int fileExists(const char *filename)
 	return 0;
 }
 
-void argumentCheck(int argc, char *argv[])
+void inputCheck(int argc, char *argv[], const char *src, const char *dest)
 {
 
 	if (argc < 2)
@@ -47,14 +47,7 @@ void argumentCheck(int argc, char *argv[])
 		perror("missing destination filename");
 		exit(-1);
 	}	
-}
 
-int main(int argc, char *argv[])
-{
-	const char *src = NULL;		//store source filename
-	const char *dest = NULL;	//store destination filename
-	
-	argumentCheck(argc, argv);
 	src = argv[1];
 	dest = argv[2];
 
@@ -62,17 +55,26 @@ int main(int argc, char *argv[])
 	if (!fileExists(src))
 	{
 		perror(src);
-		perror(": file not found");
-		return(-1);
+		exit(-1);  
 	}
 
 	// check if dest file already exists
 	if (fileExists(dest))
 	{
-		perror(dest);
-		perror(": file already exists");
-		return(-1);
+		fprintf(stderr, "%s", dest);
+		fprintf(stderr, "%s\n", "file already exists");
+		exit(-1);
 	}
+}
+
+int main(int argc, char *argv[])
+{
+	const char *src = NULL;		//store source filename
+	const char *dest = NULL;	//store destination filename
+	
+	//check for input and file errors
+	inputCheck(argc, argv, src, dest);
+
 	printf("copying...");
 
 }
