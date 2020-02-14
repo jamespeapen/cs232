@@ -15,13 +15,11 @@
 #include <unistd.h>
 #include <stdlib.h>
 
-/** 
- * Copy function
- * @param param argc the number of arguments
- * @param argvp[] an array with the arguments supplied
+/* 
+ * * File existence checker
+ * @param: *filename - pointer to the filename
+ * @returns: 1 if file exists, 0 if it doesn't
  */
-
-// *check if file exists
 const int fileExists(const char *filename)
 {
 	if (access(filename, F_OK) != -1)	
@@ -31,9 +29,15 @@ const int fileExists(const char *filename)
 	return 0;
 }
 
-void inputCheck(int argc, char *argv[], const char *src, const char *dest)
+/* 
+ * *Input checker - checks for input of source and destination files and checks that the files exist, 
+ * @param: argc - arguments passed number to check that arguments are passed
+ * @param: *argc[] - pointer to the array containing passed arguments
+ * @param: *src - pointer to the 
+ */
+void inputCheck(int argc, char *argv[])
 {
-
+	// *check if parameters were provided
 	if (argc < 2)
 	{
 		perror("missing parameters");
@@ -48,54 +52,53 @@ void inputCheck(int argc, char *argv[], const char *src, const char *dest)
 		exit(-1);
 	}	
 
-	src = argv[1];
-	dest = argv[2];
-
 	// *check if source file exists
-	if (!fileExists(src))
+	if (!fileExists(argv[1]))
 	{
-		perror(src);
+		perror(argv[1]);
 		exit(-1);  
 	}
 
 	// *check if dest file already exists
-	if (fileExists(dest))
+	if (fileExists(argv[2]))
 	{
-		fprintf(stderr, "%s", dest);
-		fprintf(stderr, "%s\n", "file already exists");
+		fprintf(stderr, "%s", argv[2]);
+		fprintf(stderr, "%s\n", ": file already exists");
 		exit(-1);
 	}
 }
 
+/** 
+ * Copy function
+ * @param param argc the number of arguments
+ * @param argvp[] an array with the arguments supplied
+ */
 int main(int argc, char *argv[])
 {
-	const char *src = NULL;		//*store source filename
-	const char *dest = NULL;	//*store destination filename
 	// *check for input and file errors
-	inputCheck(argc, argv, src, dest);
+	inputCheck(argc, argv);
 
 	printf("%s\n", "copying...");
 
 	FILE *srcFilePtr;
 	FILE *destFilePtr;
-	printf("%s\n", "makes file pntrs");
-	srcFilePtr = fopen("file1", "r");
-	destFilePtr = fopen("test", "w");
-	printf("%s\n", "opened files");
+
+	srcFilePtr = fopen(argv[1], "r");
+	destFilePtr = fopen(argv[2], "w");
+
 	char ch;
-	printf("%s\n", "made ch");
 	ch = fgetc(srcFilePtr);
 
-	printf("%s\n", "got src");
 	while (ch != EOF)
 	{
 		fputc(ch, destFilePtr);
 		ch = fgetc(srcFilePtr);
-		printf("%c\n", ch);
 	}
+
 	fclose(srcFilePtr);
 	fclose(destFilePtr);
 
+	printf("%s\n", "finished");
 	return 0;
 }
 
