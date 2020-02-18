@@ -120,8 +120,7 @@ int main(int argc, char *argv[])
 	destFilePtr = fopen(argv[2], "w");
 	
 	//copying
-	char ch;
-	ch = fgetc(srcFilePtr);
+	char ch = fgetc(srcFilePtr);
 
 	while (ch != EOF)
 	{
