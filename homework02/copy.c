@@ -3,7 +3,7 @@
  * * USAGE: copy source_file destination_file
  * * source file must exist and destination file must not exist
  * @author: James Eapen (jpe4)
- * @data: 2020 Feb 11
+ * @data: 2020 Feb 17
  * 
  * * citations:
  *      https://codeforwin.org/2018/02/c-program-to-copy-file.html
@@ -85,7 +85,8 @@ int main(int argc, char *argv[])
 
 	srcFilePtr = fopen(argv[1], "r");
 	destFilePtr = fopen(argv[2], "w");
-
+	
+	//copying
 	char ch;
 	ch = fgetc(srcFilePtr);
 
