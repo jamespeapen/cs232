@@ -78,8 +78,6 @@ int main(int argc, char *argv[])
 	// *check for input and file errors
 	inputCheck(argc, argv);
 
-	printf("%s\n", "copying...");
-
 	FILE *srcFilePtr;
 	FILE *destFilePtr;
 
@@ -99,7 +97,6 @@ int main(int argc, char *argv[])
 	fclose(srcFilePtr);
 	fclose(destFilePtr);
 
-	printf("%s\n", "finished");
 	return 0;
 }
 
