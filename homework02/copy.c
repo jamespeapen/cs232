@@ -6,7 +6,6 @@
  * @data: 2020 Feb 17
  * 
  * * citations:
- *      https://codeforwin.org/2018/02/c-program-to-copy-file.html
  *      https://www.tutorialspoint.com/cprogramming/c_strings.html
  *      https://www.tutorialspoint.com/cprogramming/c_command_line_arguments.html
  */
@@ -14,6 +13,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
 
 /* 
  * * File existence checker
@@ -27,6 +28,24 @@ const int fileExists(const char *filename)
 		return 1;	
 	}
 	return 0;
+}
+
+/*
+ * * File type checker
+ * @param: *filename - pointer to filename
+ * @returns: 0 if file is a directory or symlink
+ * @citation: https://stackoverflow.com/questions/4553012/checking-if-a-file-is-a-directory-or-just-a-file
+ */
+int checkFileType(const char *filename) 
+{
+	struct stat path_stat;
+	stat(filename, &path_stat);
+	if (!S_ISREG(path_stat.st_mode))
+	{
+		return 0;
+	}
+
+	return 1;
 }
 
 /* 
@@ -58,6 +77,13 @@ void inputCheck(int argc, char *argv[])
 		perror(argv[1]);
 		exit(-1);  
 	}
+	
+	// *check if source file is a regular file
+	else if (!checkFileType(argv[1]))
+	{
+		perror("source file is not a regular file");
+		exit(-1);
+	}
 
 	// *check if dest file already exists
 	if (fileExists(argv[2]))
@@ -72,6 +98,7 @@ void inputCheck(int argc, char *argv[])
  * Copy function
  * @param param argc the number of arguments
  * @param argvp[] an array with the arguments supplied
+ * @citation: https://codeforwin.org/2018/02/c-program-to-copy-file.html
  */
 int main(int argc, char *argv[])
 {
