@@ -35,16 +35,24 @@ const int fileExists(const char *filename)
  * @param: *filename - pointer to filename
  * @returns: 0 if file is a directory or symlink
  * @citation: https://stackoverflow.com/questions/4553012/checking-if-a-file-is-a-directory-or-just-a-file
+ * @citation: https://stackoverflow.com/questions/3984948/how-to-figure-out-if-a-file-is-a-link
  */
 int checkFileType(const char *filename) 
 {
+	// *check if src is a regular file 
 	struct stat path_stat;
 	stat(filename, &path_stat);
 	if (!S_ISREG(path_stat.st_mode))
 	{
 		return 0;
 	}
-
+	
+	// *check if src is a symlink
+	lstat(filename, &path_stat);
+	if (S_ISLNK(path_stat.st_mode))
+	{
+		return 0;
+	}
 	return 1;
 }
 
@@ -81,7 +89,7 @@ void inputCheck(int argc, char *argv[])
 	// *check if source file is a regular file
 	else if (!checkFileType(argv[1]))
 	{
-		perror("source file is not a regular file");
+		perror("source file is not a regular file: may be a directory or symlink");
 		exit(-1);
 	}
 
