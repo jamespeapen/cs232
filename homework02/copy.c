@@ -30,7 +30,7 @@ const int fileExists(const char *filename)
 }
 
 /* 
- * *Input checker - checks for input of source and destination files and checks that the files exist, 
+ * *Input checker - checks for input of source and destination files and checks if the files exist, 
  * @param: argc - arguments passed number to check that arguments are passed
  * @param: *argc[] - pointer to the array containing passed arguments
  * @param: *src - pointer to the 
