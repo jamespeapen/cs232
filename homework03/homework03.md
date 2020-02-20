@@ -11,7 +11,8 @@ Valeria Martinez (vam6)
 4. `objdump`: This program displays information about object files  
 5. `stat`: This showed the binary file size
 6. `readelf`: This shows information about ELF files
-
+7. `hexdump -C -n 64`: shows the hexdump of the ELF header and the machine type
+8. `ldd`: prints shared object dependencies, showing what mystery depends on to run
 ## Info:
 
 1. `stat`: 14008 bytes  
@@ -19,6 +20,7 @@ Valeria Martinez (vam6)
 3. `-n`: sets a port number  
 4. it sends output to the specified port
 5. `file`: Executable and Linkable Format file (ELF) 64-bit executable, LSB executable, dynamically linked, for GNU/Linux 2.6.32
+6. mystery is dynamically linked which means that it needs external components to run. These were found with ldd
 6. `readelf`:  
 	 - Class: ELF-64
 	 - version: 1
@@ -26,6 +28,7 @@ Valeria Martinez (vam6)
 	 - OS: UNIX-System V
 	 - entry point address: 0x400b80
 	 - header size: 64bytes 
+7. `ldd`: mystery depends on linux-vsdo.so.1 and libc.so.6 to run
 7. mystery shows error messages if an unavailable socket is assigned to its output.
 ## Citations  
 
