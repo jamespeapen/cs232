@@ -18,7 +18,7 @@ Valeria Martinez (vam6)
 1. `stat`: 14008 bytes  
 2. `mystery -h` displays a help message
 3. `-n`: sets a port number  
-4. it sends output to the specified port
+4. mystery sends output to the specified port
 5. `file`: Executable and Linkable Format file (ELF) 64-bit executable, LSB executable, dynamically linked, for GNU/Linux 2.6.32
 6. mystery is dynamically linked which means that it needs external components to run. These were found with ldd
 6. `readelf`:  
