@@ -10,6 +10,7 @@ Valeria Martinez (vam6)
 3. `strings`: this program showed the strings in the binary file that remained strings. The output included printing statements and memory allocation functions. 
 4. `objdump`: This program displays information about object files  
 5. `stat`: This showed the binary file size
+6. `readelf`: This shows information about ELF files
 
 ## Info:
 
@@ -17,10 +18,11 @@ Valeria Martinez (vam6)
 2. `mystery -h` displays a help message
 3. `-n`: sets a port number  
 4. it sends output to the specified port
-5. `file`: ELF 64-bit executable, LSB executable, dynamically linked, for GNU/Linux 2.6.32
+5. `file`: Executable and Linkable Format file (ELF) 64-bit executable, LSB executable, dynamically linked, for GNU/Linux 2.6.32
 6. `readelf`:  
 	 - Class: ELF-64
 	 - version: 1
+	 - Type: Executable
 	 - OS: UNIX-System V
 	 - entry point address: 0x400b80
 	 - header size: 64bytes 
@@ -29,3 +31,4 @@ Valeria Martinez (vam6)
 
  - https://unix.stackexchange.com/questions/42696/mystery-of-binary-files
  - https://linux-audit.com/elf-binaries-on-linux-understanding-and-analysis/
+ - elftoc from ELFkickers: https://github.com/BR903/ELFkickers
