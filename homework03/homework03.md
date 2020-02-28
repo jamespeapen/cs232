@@ -2,7 +2,7 @@
 
 James Eapen (jpe4),
 Valeria Martinez (vam6)
-
+Date: 2020 Feb 27
 ## Tools:
 
 1. move mystery out to home dir: this allowed the program to execute since we did not have the permission to execute it while it was still in its original location. 
