@@ -17,19 +17,25 @@ Valeria Martinez (vam6)
 
 1. `stat`: 14008 bytes  
 2. `mystery -h` displays a help message
-3. `-n`: sets a port number  
-4. mystery sends output to the specified port
-5. `file`: Executable and Linkable Format file (ELF) 64-bit executable, LSB executable, dynamically linked, for GNU/Linux 2.6.32
-6. mystery is dynamically linked which means that it needs external components to run. These were found with ldd
-6. `readelf`:  
+3. `-s` outputs 100 numbers in ascending order
+4. `-p`: sets a port number  
+5. mystery sends output to the specified port unordered
+6. mystery shows error messages if an unavailable socket is assigned to its output.
+7. bug: assigning a string to the port number does not produce an error
+8. `-n` sets a number of output lines
+9. `-e` sets a seed and outputs numbers without sorting them 
+10. `file`: Executable and Linkable Format file (ELF) 64-bit executable, LSB executable, dynamically linked, for GNU/Linux 2.6.32
+11. mystery is dynamically linked which means that it needs external components to run. These were found with ldd
+12. `readelf`:  
 	 - Class: ELF-64
 	 - version: 1
-	 - Type: Executable
+	 - Type: Executable program
 	 - OS: UNIX-System V
-	 - entry point address: 0x400b80
-	 - header size: 64bytes 
-7. `ldd`: mystery depends on linux-vsdo.so.1 and libc.so.6 to run
-7. mystery shows error messages if an unavailable socket is assigned to its output.
+	 - entry point address: 0x400b80 - first instructions of the program are executed here
+	 - header size: 64bytes - size of metadata information
+13. `ldd`: mystery depends on linux-vsdo.so.1 and libc.so.6 to run
+14. mystery shows error messages if an unavailable socket is assigned to its output.
+ 
 ## Citations  
 
  - https://unix.stackexchange.com/questions/42696/mystery-of-binary-files
