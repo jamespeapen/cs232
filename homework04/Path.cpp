@@ -6,11 +6,15 @@
 #include "Path.h"
 #include <string>
 #include <cstdlib>
+#include <iostream>
+#include <vector>
+using std::cout;
 
 /* Constructor
  */
 Path::Path() {
-
+	std::string path = std::getenv("PATH");
+	std::vector<std::string> pathVec; 
 }
 
 /* return the index of the directory containing the program
@@ -23,6 +27,6 @@ int Path::find(const std::string& program) {
  */
 
 std::string Path::getDirectory(int i) const{
-	return "string";
+	//TODO getDirectory
 }
  
