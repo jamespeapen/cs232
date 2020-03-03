@@ -13,3 +13,5 @@ class Path {
 		int find(const std::string& program);
 		std::string getDirectory(int i) const;
 };
+
+#endif /* PATH_H_ */
