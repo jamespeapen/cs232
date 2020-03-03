@@ -1,4 +1,4 @@
-/* Path.h declares a path class for MEShell to represent the directories in which it searches for executable programs
+/* Path.cpp defines the functions for the MEShell path class to represent the directories in which it searches for executable programs
  * James Eapen (jpe4)
  * Date: 2020 March 9
  */
