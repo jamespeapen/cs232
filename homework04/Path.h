@@ -11,7 +11,7 @@ class Path {
 	public:
 		Path();
 		int find(const std::string& program);
-		std::string getDirectory(int i) const;
+		std::string get_directory(int i) const;
 
 	private:
 		std::string path;

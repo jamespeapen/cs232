@@ -14,8 +14,8 @@ using std::cout;
  */
 Path::Path() {
 	std::string path = std::getenv("PATH");
-	std::vector<std::string> pathVec; 
 }
+
 
 /* return the index of the directory containing the program
  */ 
@@ -26,7 +26,7 @@ int Path::find(const std::string& program) {
 /* return the name of the directory whose index is i
  */
 
-std::string Path::getDirectory(int i) const{
+std::string Path::get_directory(int i) const{
 	//TODO getDirectory
 }
  
