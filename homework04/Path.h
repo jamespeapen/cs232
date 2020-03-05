@@ -12,6 +12,10 @@ class Path {
 		Path();
 		int find(const std::string& program);
 		std::string getDirectory(int i) const;
+
+	private:
+		std::string path;
+		std::vector<char*> path_directories;
 };
 
 #endif /* PATH_H_ */
