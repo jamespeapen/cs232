@@ -9,6 +9,7 @@
 #include <cstdlib>
 #include <iostream>
 #include <vector>
+#include <dirent.h>
 using std::cout;
 
 /* Constructor
@@ -22,10 +23,14 @@ Path::Path() {
 	}
 }
 
-
 /* return the index of the directory containing the program
  */ 
 int Path::find(const std::string& program) {
+	DIR *dir;
+	struct dirent *entry;
+	for (int i = 0; i < path_directories.size(); i++) {
+
+	}
 	return -1;
 }
 
