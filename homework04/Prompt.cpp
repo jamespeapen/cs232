@@ -14,6 +14,6 @@ Prompt::Prompt() {
 
 /* an accessor that returns the current value of the prompt 
  */
-string Prompt::get() const {
+std::string Prompt::get() const {
 	//TODO create function
 }
