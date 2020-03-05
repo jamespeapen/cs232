@@ -5,15 +5,21 @@
 
 #include "Path.h"
 #include <string>
+#include <cstring>
 #include <cstdlib>
 #include <iostream>
 #include <vector>
 using std::cout;
 
 /* Constructor
+ * Gets the environment path and appends each path directory to a vector 
  */
 Path::Path() {
-	std::string path = std::getenv("PATH");
+	path = std::getenv("PATH");
+	char* path_tokens = std::strtok(path, ":");
+	while (path_tokens != NULL) {
+		path_directories.push_back(path_tokens);
+	}
 }
 
 

@@ -6,6 +6,7 @@
 #ifndef PATH_H_
 #define PATH_H_
 #include <string>
+#include <vector>
 
 class Path {
 	public:
@@ -14,7 +15,7 @@ class Path {
 		std::string get_directory(int i) const;
 
 	private:
-		std::string path;
+		char* path;
 		std::vector<char*> path_directories;
 };
 
