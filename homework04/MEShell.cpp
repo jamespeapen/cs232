@@ -7,8 +7,14 @@
 #include "Path.h"
 #include "Prompt.h"
 #include <iostream>
+#include <string>
 using std::cout;
 
 int main() {
 	cout << "MEShell";
+	std::string test_input;	
+	std::cin >> test_input;
+
+	Path path = Path();
+	//path.find("xterm");
 }
