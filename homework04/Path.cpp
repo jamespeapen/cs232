@@ -26,10 +26,19 @@ Path::Path() {
 /* return the index of the directory containing the program
  */ 
 int Path::find(const std::string& program) {
-	DIR *dir;
-	struct dirent *entry;
-	for (int i = 0; i < path_directories.size(); i++) {
-
+	DIR *dirptr; 
+	struct dirent *direntry;
+	for (unsigned i = 0; i < path_directories.size(); i++) {
+		dirptr = opendir(path_directories[i]);
+		if (dirptr != NULL) {
+			while(direntry = readdir(dirptr)) {
+				cout << direntry->d_name;
+				//if (direntry->d_name == program) {
+					//return i;
+				//}
+			}
+		}
+		closedir(dirptr);
 	}
 	return -1;
 }
@@ -39,5 +48,6 @@ int Path::find(const std::string& program) {
 
 std::string Path::get_directory(int i) const{
 	//TODO getDirectory
+	return "todo";
 }
  
