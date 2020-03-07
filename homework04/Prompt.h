@@ -9,6 +9,10 @@ class Prompt {
 	public:
 		Prompt();
 		std::string get() const;
+
+	private:
+		std::string prompt;
+
 };
 
 #endif /* PROMPT_H_ */
