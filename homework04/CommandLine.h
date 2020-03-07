@@ -16,9 +16,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
-#include <sstream>
 #include <vector>
 #include <istream>
+#include <sstream>
 using namespace std;
 
 class CommandLine {
@@ -34,10 +34,10 @@ public:
 	
 
 private:
-	string myCommandLine;
 	int argc = 0;
 	char** argv;
 	bool ampersand;
+    vector<string> tempArgv; 
 };
 
 #endif /* COMMANDLINE_H_ */
