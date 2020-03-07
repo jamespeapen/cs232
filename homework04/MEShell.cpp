@@ -9,12 +9,12 @@
 #include <iostream>
 #include <string>
 using std::cout;
+using std::endl;
 
 int main() {
-	cout << "MEShell";
+	cout << "MEShell" << endl;
 	std::string test_input;	
-	std::cin >> test_input;
-
 	Path path = Path();
-	//path.find("xterm");
+	//cout << path.get_directory(4);
+	//std::cin >> test_input;
 }
