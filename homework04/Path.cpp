@@ -29,6 +29,7 @@ int Path::find(const std::string& program) {
 	DIR *dirptr; 
 	struct dirent *direntry;
 	for (unsigned i = 0; i < path_directories.size(); i++) {
+		cout << path_directories[i];
 		dirptr = opendir(path_directories[i]);
 		if (dirptr != NULL) {
 			while(direntry = readdir(dirptr)) {
