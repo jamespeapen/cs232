@@ -11,6 +11,7 @@
 #include <vector>
 #include <dirent.h>
 using std::cout;
+using std::endl;
 
 /* Constructor
  * Gets the environment path and appends each path directory to a vector 
@@ -18,9 +19,14 @@ using std::cout;
 Path::Path() {
 	path = std::getenv("PATH");
 	char* path_tokens = std::strtok(path, ":");
+	
 	while (path_tokens != NULL) {
 		path_directories.push_back(path_tokens);
+		path_tokens = std::strtok(NULL, ":");
 	}
+	//for (unsigned i = 0; i < path_directories.size(); i++) {
+	//	cout << path_directories[i] << endl;
+	//}
 }
 
 /* return the index of the directory containing the program
