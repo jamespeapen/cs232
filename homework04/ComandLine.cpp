@@ -15,6 +15,11 @@
 CommandLine::CommandLine(istream& in){
 
     ampersand = false;
+    cout << "Waiting for CLI input" << endl;
+    getline(in, myCommandLine);
+    cout << "Your input was" << myCommandLine << endl;
+
+
 
 
 }

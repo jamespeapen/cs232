@@ -24,11 +24,14 @@ using namespace std;
 class CommandLine {
 public:
 	CommandLine(istream& in);
+    bool noAmpersand() const { return !ampersand; }
+
+    //ComandLine getters
 	char* getCommand() const { return argv[0]; }
 	int getArgCount() const { return argc; }
 	char** getArgVector() const { return argv; }
 	char* getArgVector(int i) const { return argv[i]; }
-	bool noAmpersand() const { return !ampersand; }
+	
 
 private:
 	string myCommandLine;
