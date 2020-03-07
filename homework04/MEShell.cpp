@@ -15,6 +15,7 @@ int main() {
 	cout << "MEShell" << endl;
 	std::string test_input;	
 	Path path = Path();
-	//cout << path.get_directory(4);
-	//std::cin >> test_input;
+	//cout << path.get_directory(path.find("cp"));
+	Prompt prompt = Prompt();
+	cout << prompt.get();
 }
