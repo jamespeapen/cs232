@@ -35,14 +35,14 @@ int Path::find(const std::string& program) {
 	DIR *dirptr; 
 	struct dirent *direntry;
 	for (unsigned i = 0; i < path_directories.size(); i++) {
-		cout << path_directories[i];
+		//cout << path_directories[i] << endl;
 		dirptr = opendir(path_directories[i]);
 		if (dirptr != NULL) {
 			while(direntry = readdir(dirptr)) {
-				cout << direntry->d_name;
-				//if (direntry->d_name == program) {
-					//return i;
-				//}
+		//		cout << direntry->d_name << endl;
+				if (direntry->d_name == program) {
+					return i;
+				}
 			}
 		}
 		closedir(dirptr);
