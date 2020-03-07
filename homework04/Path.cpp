@@ -54,7 +54,6 @@ int Path::find(const std::string& program) {
  */
 
 std::string Path::get_directory(int i) const{
-	//TODO getDirectory
-	return "todo";
+	return path_directories[i];
 }
  
