@@ -11,6 +11,9 @@
 
 
 #include "CommandLine.h"
+#include <stdio.h>
+#include <string.h>
+
 
 CommandLine::CommandLine(istream& in){
     string myCommandLine;
