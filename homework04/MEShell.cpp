@@ -1,21 +1,14 @@
-/* Driver for the MEShell
- * James Eapen (jpe4)
- * Valeria Martinez (vam6)
+/* MEShell.cpp contains the methods of the MEShell environment
+ * Authors: James Eapen (jpe4), Valeria Martinez (vam6)
+ * Date: 2020 March 12
  */
 
 #include "MEShell.h"
-#include "Path.h"
-#include "Prompt.h"
-#include <iostream>
-#include <string>
-using std::cout;
-using std::endl;
 
-int main() {
-	cout << "MEShell" << endl;
-	std::string test_input;	
-	Path path = Path();
-	//cout << path.get_directory(path.find("cp"));
-	Prompt prompt = Prompt();
-	cout << prompt.get();
+MEShell::MEShell() {
+	
+}
+
+void MEShell::run() {
+
 }
