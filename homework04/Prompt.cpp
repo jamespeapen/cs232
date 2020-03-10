@@ -17,5 +17,11 @@ Prompt::Prompt() {
 /* an accessor that returns the current value of the prompt 
  */
 std::string Prompt::get() const {
+	return prompt + "$ ";
+}
+
+/* an accessor that returns the current path for pwd
+ */
+std::string Prompt::get_path() const {
 	return prompt;
 }
