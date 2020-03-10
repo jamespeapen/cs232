@@ -4,8 +4,6 @@
  */
 
 #include "MEShell.h"
-using std::cout;
-using std::endl;
 
 /* Constructor for MEShell
  */
@@ -23,9 +21,17 @@ void MEShell::run() {
 			cout << "pwd: ";
 			cout << prompt.get_path() << endl;
 		}
+
+		else {
+			string entry_command_path;
+			if (path.find(line_in) != -1) {
+				entry_command_path = path.get_directory(path.find(line_in));
+			}
+
 			else {
 				cout << path.get_directory(path.find(line_in)) << endl;
-				
 			}
+		}
 	}
 }
+			
