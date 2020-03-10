@@ -5,6 +5,7 @@
 #define MESHELL_H_ 
 #include "Path.h"
 #include "Prompt.h"
+#include "CommandLine.h"
 #include <string>
 class MEShell {
 
@@ -13,8 +14,12 @@ class MEShell {
 		void run();
 	
 	private:
-		std::string prompt;
-		std::string path;
+		std::string line_in;
+		std::istringstream iss;
+		Path path = Path();
+		Prompt prompt = Prompt();
+		CommandLine input = CommandLine();
+
 };
 
 #endif /* MESHELL_H_  */
