@@ -4,9 +4,6 @@
  */ 
 
 #include "Prompt.h"
-#include <iostream>
-#include <string>
-#include <unistd.h>
 using std::cout;
 
 /*Constructor that builds a prompt as the full path to the working directory

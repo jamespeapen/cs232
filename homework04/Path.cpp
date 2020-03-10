@@ -4,12 +4,6 @@
  */
 
 #include "Path.h"
-#include <string>
-#include <cstring>
-#include <cstdlib>
-#include <iostream>
-#include <vector>
-#include <dirent.h>
 using std::cout;
 using std::endl;
 

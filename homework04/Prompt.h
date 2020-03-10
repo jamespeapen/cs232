@@ -3,7 +3,9 @@
 
 #ifndef PROMPT_H_
 #define PROMPT_H_
+#include <iostream>
 #include <string>
+#include <unistd.h>
 
 class Prompt {
 	public:
