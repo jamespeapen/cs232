@@ -13,10 +13,12 @@
 #include "CommandLine.h"
 #include <stdio.h>
 #include <string.h>
+#include <istream>
+#include <sstream>
 
 
 CommandLine::CommandLine(istream& in){
-    string myCommandLine;
+    
     ampersand = false;
     cout << "Waiting for CLI input" << endl;
     getline(in, myCommandLine);
@@ -27,7 +29,7 @@ CommandLine::CommandLine(istream& in){
 //push istringstream converted strings from commandline into the vector
     for (string s; iss >> s; ) {
 		tempArgv.push_back(s);
-		argc += 1;
+		my_argc += 1;
 	}
 
 //check if command has ampersand

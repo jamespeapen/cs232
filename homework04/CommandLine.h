@@ -17,8 +17,6 @@
 #include <stdlib.h>
 #include <string>
 #include <vector>
-#include <istream>
-#include <sstream>
 using namespace std;
 
 class CommandLine {
@@ -26,18 +24,19 @@ public:
 	CommandLine(istream& in);
     bool noAmpersand() const { return !ampersand; }
 
-    //ComandLine getters
-	char* getCommand() const { return argv[0]; }
-	int getArgCount() const { return argc; }
-	char** getArgVector() const { return argv; }
-	char* getArgVector(int i) const { return argv[i]; }
+    //CommandLine getters
+	char* getCommand() const { return my_argv[0]; }
+	int getArgCount() const { return my_argc; }
+	char** getArgVector() const { return my_argv; }
+	char* getArgVector(int i) const { return my_argv[i]; }
 	
 
 private:
-	int argc = 0;
-	char** argv;
+	int my_argc = 0;
+	char** my_argv;
 	bool ampersand;
     vector<string> tempArgv; 
+    string myCommandLine;
 };
 
 #endif /* COMMANDLINE_H_ */
