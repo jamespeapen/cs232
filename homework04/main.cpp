@@ -12,6 +12,7 @@ using std::cout;
 using std::endl;
 
 int main() {
+	MEShell shell = MEShell();
 	cout << "MEShell" << endl;
 	std::string test_input;	
 	Path path = Path();
