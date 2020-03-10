@@ -4,11 +4,20 @@
  */
 
 #include "MEShell.h"
+using std::cout;
+using std::endl;
 
 MEShell::MEShell() {
 		
 }
 
 void MEShell::run() {
-
+	while (line_in != "exit") {
+		cout << prompt.get(); 
+		cin >> line_in;
+		if (line_in == "pwd") {
+			cout << "pwd: ";
+			cout << prompt.get_path() << endl;
+		}
+	}
 }
