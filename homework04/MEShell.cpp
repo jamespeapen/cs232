@@ -7,10 +7,14 @@
 using std::cout;
 using std::endl;
 
+/* Constructor for MEShell
+ */
 MEShell::MEShell() {
 		
 }
 
+/* driver for running the shell
+ */
 void MEShell::run() {
 	while (line_in != "exit") {
 		cout << prompt.get(); 
@@ -19,5 +23,9 @@ void MEShell::run() {
 			cout << "pwd: ";
 			cout << prompt.get_path() << endl;
 		}
+			else {
+				cout << path.get_directory(path.find(line_in)) << endl;
+				
+			}
 	}
 }
