@@ -13,10 +13,5 @@ using std::endl;
 
 int main() {
 	MEShell shell = MEShell();
-	cout << "MEShell" << endl;
-	std::string test_input;	
-	Path path = Path();
-	//cout << path.get_directory(path.find("cp"));
-	Prompt prompt = Prompt();
-	cout << prompt.get();
+	shell.run();
 }
