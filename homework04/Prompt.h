@@ -11,6 +11,7 @@ class Prompt {
 	public:
 		Prompt();
 		std::string get() const;
+		std::string get_path() const;
 
 	private:
 		std::string prompt;
