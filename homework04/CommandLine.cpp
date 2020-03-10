@@ -24,12 +24,19 @@ CommandLine::CommandLine(istream& in){
     istringstream iss  (myCommandLine);
     string aTempString;
 
-    
+//push istringstream converted strings from commandline into the vector
+    for (string s; iss >> s; ) {
+		tempArgv.push_back(s);
+		argc += 1;
+	}
+
+//check if command has ampersand
     while(iss >> aTempString){
         tempArgv.push_back(aTempString);
         if (strcmp(aTempString.c_str(), "&") != 0) { //if commmand has an ampersand, return true
 			ampersand = true;}
     }
+   
 
 
 
