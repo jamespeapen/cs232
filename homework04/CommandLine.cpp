@@ -25,7 +25,7 @@ CommandLine::CommandLine(istream& in){
     cout << "Your input was" << myCommandLine << endl;
     istringstream iss  (myCommandLine);
     string aTempString;
-    vector charVec = vector<char*>();
+    vector<char*> charVec = vector<char*>();
 
 //push istringstream converted strings from commandline into the vector
     for (string s; iss >> s; ) {
@@ -39,13 +39,10 @@ CommandLine::CommandLine(istream& in){
         if (strcmp(aTempString.c_str(), "&") != 0) { //if commmand has an ampersand, return true
 			ampersand = true;}
 
-   
-
     for(int i = 0; i < commandLineWords.size(); i++){
         charVec.push_back((char*)commandLineWords[i].data());
     }
     charVec.push_back(NULL);
-
     my_argv = charVec.data();
 }
     }
