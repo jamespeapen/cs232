@@ -28,7 +28,7 @@ void MEShell::run() {
 		else {
 			string entry_command_path;
 			if (path.find(line_in) == -1) {
-				cout << "not found";
+				cout << line_in << " command not found" << endl;
 			}
 
 			else {
