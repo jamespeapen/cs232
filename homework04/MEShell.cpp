@@ -14,18 +14,21 @@ MEShell::MEShell() {
 /* driver for running the shell
  */
 void MEShell::run() {
-	while (line_in != "exit") {
+	while (true) {
 		cout << prompt.get(); 
 		cin >> line_in;
 		if (line_in == "pwd") {
 			cout << "pwd: ";
 			cout << prompt.get_path() << endl;
 		}
+		else if (line_in == "exit") {
+			break;
+		}
 
 		else {
 			string entry_command_path;
-			if (path.find(line_in) != -1) {
-				entry_command_path = path.get_directory(path.find(line_in));
+			if (path.find(line_in) == -1) {
+				cout << "not found";
 			}
 
 			else {
