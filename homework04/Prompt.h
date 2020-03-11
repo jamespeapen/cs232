@@ -3,12 +3,15 @@
 
 #ifndef PROMPT_H_
 #define PROMPT_H_
+#include <iostream>
 #include <string>
+#include <unistd.h>
 
 class Prompt {
 	public:
 		Prompt();
 		std::string get() const;
+		std::string get_path() const;
 
 	private:
 		std::string prompt;

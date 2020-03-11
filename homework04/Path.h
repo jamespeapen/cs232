@@ -6,7 +6,11 @@
 #ifndef PATH_H_
 #define PATH_H_
 #include <string>
+#include <cstring>
+#include <cstdlib>
+#include <iostream>
 #include <vector>
+#include <dirent.h>
 
 class Path {
 	public:

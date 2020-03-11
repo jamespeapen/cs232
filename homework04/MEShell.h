@@ -1,11 +1,23 @@
-/* MEShell.h declares a driver class for MEShell
+/* MEShell.h declares a class for the MEShell environment
  */
 
 #ifndef MESHELL_H_
 #define MESHELL_H_ 
+#include "Path.h"
+#include "Prompt.h"
+#include "CommandLine.h"
 #include <string>
-
+#include <iostream>
 class MEShell {
+
+	public:
+		MEShell();
+		void run();
+	
+	private:
+		std::string line_in;
+		Path path = Path();
+		Prompt prompt = Prompt();
 
 };
 
