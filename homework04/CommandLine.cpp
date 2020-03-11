@@ -25,7 +25,7 @@ CommandLine::CommandLine(istream& in){
     cout << "Your input was" << myCommandLine << endl;
     istringstream iss  (myCommandLine);
     string aTempString;
-    charVec = vector<char*>();
+    vector charVec = vector<char*>();
 
 //push istringstream converted strings from commandline into the vector
     for (string s; iss >> s; ) {
