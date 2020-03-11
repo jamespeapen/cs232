@@ -35,7 +35,7 @@ private:
 	int my_argc = 0;
 	char** my_argv;
 	bool ampersand;
-    vector<string> tempArgv; 
+    vector<string> commandLineWords; 
     string myCommandLine;
 };
 
