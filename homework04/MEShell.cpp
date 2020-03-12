@@ -14,20 +14,19 @@ MEShell::MEShell() {
 /* driver for running the shell
  */
 void MEShell::run() {
+
 	while (true) {
+
 		cout << prompt.get(); 
-		cin >> line_in;
-		if (line_in == "exit") {
+		CommandLine cmd = CommandLine(cin); 
+		cout << "entered" << endl;
+		if (cmd.getCommand() == "exit") {
+			cout << "exiting";
 			break;
 		}
-		else if (line_in == "pwd") {
+		else if (cmd.getCommand() == "pwd") {
 			cout << "pwd: ";
 			cout << prompt.get_path() << endl;
-		}
-		
-		else {
-			istringstream iss2 (line_in);
-			CommandLine cmd = CommandLine(iss2);
 		}
 	}
 }
