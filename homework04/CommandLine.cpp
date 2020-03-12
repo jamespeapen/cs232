@@ -20,15 +20,16 @@
 CommandLine::CommandLine(istream& in){
     
     ampersand = false;
-    //cout << "Waiting for CLI input" << endl;
+    cout << "Waiting for CLI input" << endl;
     getline(in, myCommandLine);
-    //cout << "Your input was" << myCommandLine << endl;
+    cout << "Your input was " << myCommandLine << endl;
     istringstream iss  (myCommandLine);
     string aTempString;
     vector<char*> charVec = vector<char*>();
 
 //push istringstream converted strings from commandline into the vector
     for (string s; iss >> s; ) {
+	    	cout << s << endl;;
 		commandLineWords.push_back(s);
 		my_argc += 1;
 	}
@@ -46,9 +47,5 @@ CommandLine::CommandLine(istream& in){
     my_argv = charVec.data();
 }
     }
-   
-
-
-
 
 
