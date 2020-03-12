@@ -10,11 +10,13 @@
 class Prompt {
 	public:
 		Prompt();
-		std::string get() const;
-		std::string get_path() const;
+		void get_current_dir();
+		std::string get_prompt() const;
+		std::string get_path();
 
 	private:
 		std::string prompt;
+		char cwd[255];
 
 };
 
