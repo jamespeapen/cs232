@@ -16,17 +16,23 @@ MEShell::MEShell() {
 void MEShell::run() {
 
 	while (true) {
-
-		cout << prompt.get(); 
+		prompt.get_path();
+		cout << prompt.get_prompt(); 
 		CommandLine cmd = CommandLine(cin); 
-		cout << "entered" << endl;
+
 		if (cmd.getCommand() == "exit") {
 			cout << "exiting";
 			break;
 		}
 		else if (cmd.getCommand() == "pwd") {
 			cout << "pwd: ";
-			cout << prompt.get_path() << endl;
+		}
+
+		else if (cmd.getCommand() == "cd") {
+			const char* path;	
+			path = cmd.getArg(1).c_str();
+			cout << path << endl;
+			chdir(path);
 		}
 	}
 }
