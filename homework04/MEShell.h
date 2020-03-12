@@ -7,6 +7,7 @@
 #include "Prompt.h"
 #include "CommandLine.h"
 #include <string>
+#include <sstream>
 #include <iostream>
 class MEShell {
 
@@ -18,7 +19,6 @@ class MEShell {
 		std::string line_in;
 		Path path = Path();
 		Prompt prompt = Prompt();
-
 };
 
 #endif /* MESHELL_H_  */
