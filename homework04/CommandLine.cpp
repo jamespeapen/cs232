@@ -20,9 +20,9 @@
 CommandLine::CommandLine(istream& in){
     
     ampersand = false;
-    cout << "Waiting for CLI input" << endl;
+    //cout << "Waiting for CLI input" << endl;
     getline(in, myCommandLine);
-    cout << "Your input was" << myCommandLine << endl;
+    //cout << "Your input was" << myCommandLine << endl;
     istringstream iss  (myCommandLine);
     string aTempString;
     vector<char*> charVec = vector<char*>();
