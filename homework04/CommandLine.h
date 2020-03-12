@@ -25,10 +25,10 @@ public:
     bool noAmpersand() const { return !ampersand; }
 
     //CommandLine getters
-	char* getCommand() const { return my_argv[0]; }
-	int getArgCount() const { return my_argc; }
-	char** getArgVector() const { return my_argv; }
-	char* getArgVector(int i) const { return my_argv[i]; }
+ 	string getCommand() const { return commandLineWords[0]; }
+	int getArgCount() const { return commandLineWords.size(); }
+	vector<string> getArgVector() const { return commandLineWords; }
+	string getArgVector(int i) const { return commandLineWords[i]; }
 	
 
 private:
