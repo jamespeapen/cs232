@@ -28,7 +28,7 @@ public:
  	string getCommand() const { return commandLineWords[0]; }
 	int getArgCount() const { return commandLineWords.size(); }
 	vector<string> getArgVector() const { return commandLineWords; }
-	string getArgVector(int i) const { return commandLineWords[i]; }
+	string getArg(int i) const { return commandLineWords[i]; }
 	
 
 private:
