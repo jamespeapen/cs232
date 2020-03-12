@@ -17,23 +17,17 @@ void MEShell::run() {
 	while (true) {
 		cout << prompt.get(); 
 		cin >> line_in;
-		if (line_in == "pwd") {
+		if (line_in == "exit") {
+			break;
+		}
+		else if (line_in == "pwd") {
 			cout << "pwd: ";
 			cout << prompt.get_path() << endl;
 		}
-		else if (line_in == "exit") {
-			break;
-		}
-
+		
 		else {
-			string entry_command_path;
-			if (path.find(line_in) == -1) {
-				cout << line_in << " command not found" << endl;
-			}
-
-			else {
-				cout << path.get_directory(path.find(line_in)) << endl;
-			}
+			istringstream iss2 (line_in);
+			CommandLine cmd = CommandLine(iss2);
 		}
 	}
 }
