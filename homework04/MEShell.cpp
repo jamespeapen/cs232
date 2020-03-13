@@ -34,6 +34,26 @@ void MEShell::run() {
 			cout << path << endl;
 			chdir(path);
 		}
+
+		else {
+			string program = cmd.getCommand();
+			int command_found = path.find(program); 
+			if (command_found == -1 ) {
+				cout << program << ": command not found" << endl;
+			}
+			
+			else {
+				string program_path = path.get_directory(command_found) + "/" + program; 
+				cout << program_path << endl;
+
+				pid_t c_pid = fork();
+
+				if (c_pid == 0) {
+					cout << "child proc" << endl;
+					execve(program_path.c_str());
+				}
+			}
+		}
 	}
 }
 			
