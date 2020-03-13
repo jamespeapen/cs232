@@ -17,9 +17,12 @@
 #include <sstream>
 
 
+CommandLine::CommandLine() {
+
+}
 
 CommandLine::CommandLine(istream& in){
-
+	my_argc = 0;
     	ampersand = false;
     	getline(in, myCommandLine);
     	istringstream iss  (myCommandLine);
@@ -28,10 +31,10 @@ CommandLine::CommandLine(istream& in){
 
 	//check if command has ampersand
 	
-	for (string s; iss >> s;) {
-		commandLineWords.push_back(s);
-		my_argc += 1;
-	}
+	//for (string s; iss >> s;) {
+	//	commandLineWords.push_back(s);
+	//	my_argc += 1;
+	//}
 
 	while(iss >> aTempString){
 	        if (strcmp(aTempString.c_str(), "&") == 0) { 
@@ -40,6 +43,7 @@ CommandLine::CommandLine(istream& in){
 		}
 		else {
 			commandLineWords.push_back(aTempString);
+			my_argc++;
 		}
 	}
 
@@ -51,6 +55,9 @@ CommandLine::CommandLine(istream& in){
 	}
 }
 
-
-
-
+CommandLine::~CommandLine() {
+	for (int i = 0; i < commandLineWords.size(); i++) {
+		delete[] my_argv[i];
+	} 
+	delete[] my_argv;
+}
