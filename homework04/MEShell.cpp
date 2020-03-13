@@ -19,9 +19,11 @@ void MEShell::run() {
 		prompt.get_path();
 		cout << prompt.get_prompt(); 
 		CommandLine cmd = CommandLine(cin); 
+		string dirname = cmd.getArg(1);
+		//CustomException ce = CustomException("cd",dirname);
 
 		if (cmd.getCommand() == "exit") {
-			cout << "exiting";
+			cout << "exiting" << endl;
 			break;
 		}
 		else if (cmd.getCommand() == "pwd") {
@@ -29,11 +31,24 @@ void MEShell::run() {
 		}
 
 		else if (cmd.getCommand() == "cd") {
-			const char* path;	
-			path = cmd.getArg(1).c_str();
-			cout << path << endl;
-			chdir(path);
+			 // cout<< cmd.getArg(1) << endl;
+			 try{
+			if(cmd.IsPathExist(cmd.getArg(1))){
+				const char* path;	
+				path = cmd.getArg(1).c_str();
+				cout << path << endl;
+				chdir(path);
+			}
+			else{
+				throw CustomException("cd", dirname);
+
+			}
+			}
+			catch(CustomException &e){
+				cout << "The directory does not exist" <<endl; 
+			}
 		}
-	}
+}
+
 }
 			

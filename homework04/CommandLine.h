@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <string>
 #include <vector>
+#include <sys/stat.h>
 using namespace std;
 
 class CommandLine {
@@ -29,6 +30,11 @@ public:
 	int getArgCount() const { return commandLineWords.size(); }
 	vector<string> getArgVector() const { return commandLineWords; }
 	string getArg(int i) const { return commandLineWords[i]; }
+
+    bool IsPathExist(const std::string &s){
+    struct stat buffer;
+    return (stat (s.c_str(), &buffer) == 0);
+    }
 	
 
 private:

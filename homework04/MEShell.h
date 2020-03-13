@@ -9,6 +9,11 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <exception>
+#include "CustomException.h"
+
 class MEShell {
 
 	public:

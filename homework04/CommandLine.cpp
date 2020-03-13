@@ -17,6 +17,7 @@
 #include <sstream>
 
 
+
 CommandLine::CommandLine(istream& in){
     
     ampersand = false;
@@ -45,6 +46,7 @@ CommandLine::CommandLine(istream& in){
     charVec.push_back(NULL);
     my_argv = charVec.data();
 }
-    }
+
+}
 
 
