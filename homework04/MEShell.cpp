@@ -14,30 +14,34 @@ MEShell::MEShell()
 /* driver for running the shell
  */
 void MEShell::run() {
-
+	cout << "a" << endl;
 	while (true)
 	{
 		prompt.get_path();
 		cout << prompt.get_prompt();
+		cout << "round";
 		CommandLine cmd = CommandLine(cin);
 
-		char *command = cmd.getCommand();
-		string command_str(command);
+		//char *command = cmd.getCommand();
+		//cout << command_str;
 		string dirname(cmd.getArg(1));
 
-		if (command_str == "exit")
+		//if (command_str == "exit")
+		if (strcmp(cmd.getCommand(), "exit") == 0) 
 		{
 			break;
 		}
 
-		else if (command_str == "pwd")
+		//else if (command_str == "pwd")
+		else if (strcmp(cmd.getCommand(), "pwd") == 0) 
 		{
 			cout << "get_path" << endl;
 			cout << prompt.get_path() << endl;
 		}
 
-		else if (command_str == "cd")
+		else if (strcmp(cmd.getCommand(), "cd") == 0)
 		{
+			cout << "cd";
 			try
 			{
 				if (cmd.IsPathExist(cmd.getArg(1)))
@@ -59,7 +63,8 @@ void MEShell::run() {
 
 		else
 		{
-			string program = cmd.getCommand();
+			cout << "other";
+			char* program = cmd.getCommand();
 			int command_found = path.find(program);
 			if (command_found == -1)
 			{
@@ -88,7 +93,12 @@ void MEShell::run() {
 					c_pid = waitpid(c_pid, &status, WUNTRACED | WCONTINUED);
 					cout << "child finished" << endl;
 				}
+				cout << "1";
 			}
+			cout << "2";
 		}
+		cout << "3";
+		cout << cmd.getCommand();
+//		cmd.~CommandLine();
 	}
 }
