@@ -36,8 +36,9 @@ CommandLine::CommandLine(istream& in){
 //check if command has ampersand
     while(iss >> aTempString){
         commandLineWords.push_back(aTempString);
-        if (strcmp(aTempString.c_str(), "&") != 0) { //if commmand has an ampersand, return true
-			ampersand = true;}
+        if (strcmp(aTempString.c_str(), "&") != 0) { //if commmand has an ampersand, return 
+		ampersand = true;
+	}
 
     for(int i = 0; i < commandLineWords.size(); i++){
         charVec.push_back((char*)commandLineWords[i].data());
