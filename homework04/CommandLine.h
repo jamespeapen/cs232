@@ -29,7 +29,7 @@ class CommandLine {
 		int getArgCount() const { return commandLineWords.size(); }
 		vector<string> getArgVector() const { return commandLineWords; }
 		string getArg(int i) const { return commandLineWords[i]; }
-	
+		char** get_argv() const {return my_argv; }	
 
 	private:
 		int my_argc = 0;
