@@ -22,8 +22,10 @@ using namespace std;
 
 class CommandLine {
 	public:
+		CommandLine();
 		CommandLine(istream& in);
     		bool noAmpersand() const { return !ampersand; }
+		virtual ~CommandLine();
 
     //CommandLine getters
  	char* getCommand() const { return my_argv[0]; }
@@ -38,7 +40,7 @@ class CommandLine {
 	
 
 private:
-	int my_argc = 0;
+	int my_argc;
 	char** my_argv;
 	bool ampersand;
     vector<string> commandLineWords; 
