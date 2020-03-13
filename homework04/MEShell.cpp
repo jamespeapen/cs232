@@ -4,7 +4,7 @@
  */
 
 #include "MEShell.h"
-
+#include "sys/wait.h"
 /* Constructor for MEShell
  */
 MEShell::MEShell() {
@@ -19,18 +19,21 @@ void MEShell::run() {
 		prompt.get_path();
 		cout << prompt.get_prompt(); 
 		CommandLine cmd = CommandLine(cin); 
+		
+		char* command = cmd.getCommand();	
+		cout << command;
+		string command_str(command);
 
-		if (cmd.getCommand() == "exit") {
-			cout << "exiting";
+		if (command_str == "exit") {
 			break;
 		}
-		else if (cmd.getCommand() == "pwd") {
-			cout << "pwd: ";
+		else if (command_str == "pwd") {
+			cout << prompt.get_path() << endl;
 		}
 
-		else if (cmd.getCommand() == "cd") {
+		else if (command_str == "cd") {
 			const char* path;	
-			path = cmd.getArg(1).c_str();
+			path = cmd.getArg(1);
 			chdir(path);
 		}
 
@@ -46,17 +49,22 @@ void MEShell::run() {
 				cout << program_path << endl;
 
 				pid_t c_pid = fork();
+				int status;
+				
 				char** args = cmd.get_argv();
 				if (c_pid == 0) {
 					cout << "child proc" << endl;
 					execve(program_path.c_str(), args, NULL);
+					
+					exit(0);
 				}
 
 				else if (c_pid > 0) {
+					c_pid = waitpid(c_pid, &status, WUNTRACED | WCONTINUED);
 					cout << "child finished" << endl;
 				}
 			}
 		}
 	}
 }
-			
+		      
