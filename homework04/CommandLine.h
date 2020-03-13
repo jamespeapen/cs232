@@ -25,10 +25,10 @@ class CommandLine {
     		bool noAmpersand() const { return !ampersand; }
 
     //CommandLine getters
- 		string getCommand() const { return commandLineWords[0]; }
-		int getArgCount() const { return commandLineWords.size(); }
-		vector<string> getArgVector() const { return commandLineWords; }
-		string getArg(int i) const { return commandLineWords[i]; }
+ 		char* getCommand() const { return my_argv[0]; }
+		int getArgCount() const { return my_argc; }
+		char** getArgVector() const { return my_argv; }
+		char* getArg(int i) const { return my_argv[i]; }
 		char** get_argv() const {return my_argv; }	
 
 	private:
