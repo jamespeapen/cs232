@@ -31,7 +31,6 @@ void MEShell::run() {
 		else if (cmd.getCommand() == "cd") {
 			const char* path;	
 			path = cmd.getArg(1).c_str();
-			cout << path << endl;
 			chdir(path);
 		}
 
@@ -47,10 +46,14 @@ void MEShell::run() {
 				cout << program_path << endl;
 
 				pid_t c_pid = fork();
-
+				char** args = cmd.get_argv();
 				if (c_pid == 0) {
 					cout << "child proc" << endl;
-					execve(program_path.c_str());
+					execve(program_path.c_str(), args, NULL);
+				}
+
+				else if (c_pid > 0) {
+					cout << "child finished" << endl;
 				}
 			}
 		}
