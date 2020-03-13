@@ -9,6 +9,7 @@
 #include <string>
 #include <sstream>
 #include <iostream>
+using namespace std;
 class MEShell {
 
 	public:
@@ -16,9 +17,11 @@ class MEShell {
 		void run();
 	
 	private:
-		std::string line_in;
+		string line_in;
 		Path path = Path();
 		Prompt prompt = Prompt();
+		vector<string> get_args(vector<string> &vec);
+		void get_args(vector<string> &vec, char* argv);
 };
 
 #endif /* MESHELL_H_  */
