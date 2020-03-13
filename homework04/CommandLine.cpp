@@ -17,6 +17,7 @@
 #include <sstream>
 
 
+
 CommandLine::CommandLine(istream& in){
 
     	ampersand = false;
@@ -49,5 +50,7 @@ CommandLine::CommandLine(istream& in){
 		strcpy(my_argv[i], commandLineWords[i].c_str());
 	}
 }
+
+
 
 

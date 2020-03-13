@@ -17,6 +17,7 @@
 #include <stdlib.h>
 #include <string>
 #include <vector>
+#include <sys/stat.h>
 using namespace std;
 
 class CommandLine {
@@ -25,18 +26,23 @@ class CommandLine {
     		bool noAmpersand() const { return !ampersand; }
 
     //CommandLine getters
- 		char* getCommand() const { return my_argv[0]; }
-		int getArgCount() const { return my_argc; }
-		char** getArgVector() const { return my_argv; }
-		char* getArg(int i) const { return my_argv[i]; }
-		char** get_argv() const {return my_argv; }	
+ 	char* getCommand() const { return my_argv[0]; }
+	int getArgCount() const { return my_argc; }
+	char** getArgVector() const { return my_argv; }
+	char * getArg(int i) const { return my_argv[i]; }
 
-	private:
-		int my_argc = 0;
-		char** my_argv;
-		bool ampersand;
-		vector<string> commandLineWords; 
-		string myCommandLine;
+    bool IsPathExist(const std::string &s){
+    struct stat buffer;
+    return (stat (s.c_str(), &buffer) == 0);
+    }
+	
+
+private:
+	int my_argc = 0;
+	char** my_argv;
+	bool ampersand;
+    vector<string> commandLineWords; 
+    string myCommandLine;
 };
 
 #endif /* COMMANDLINE_H_ */
