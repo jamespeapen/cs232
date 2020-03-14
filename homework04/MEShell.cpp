@@ -14,7 +14,6 @@ MEShell::MEShell()
 /* driver for running the shell
  */
 void MEShell::run() {
-	cout << "a" << endl;
 	while (true)
 	{
 		prompt.get_path();
@@ -65,6 +64,7 @@ void MEShell::run() {
 				continue;
 			}
 			int command_found = path.find(program);
+
 			if (command_found == -1)
 			{
 				cout << program << ": command not found" << endl;
@@ -95,7 +95,5 @@ void MEShell::run() {
 				}
 			}
 		}
-		cout << cmd.getCommand();
-//		cmd.~CommandLine(); 
 	}
 }
