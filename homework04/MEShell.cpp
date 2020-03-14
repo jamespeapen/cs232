@@ -19,12 +19,9 @@ void MEShell::run() {
 	{
 		prompt.get_path();
 		cout << prompt.get_prompt();
-		cout << "round";
 		CommandLine cmd = CommandLine(cin);
-
 		//char *command = cmd.getCommand();
 		//cout << command_str;
-		string dirname(cmd.getArg(1));
 
 		//if (command_str == "exit")
 		if (strcmp(cmd.getCommand(), "exit") == 0) 
@@ -35,15 +32,14 @@ void MEShell::run() {
 		//else if (command_str == "pwd")
 		else if (strcmp(cmd.getCommand(), "pwd") == 0) 
 		{
-			cout << "get_path" << endl;
 			cout << prompt.get_path() << endl;
 		}
 
 		else if (strcmp(cmd.getCommand(), "cd") == 0)
 		{
-			cout << "cd";
 			try
 			{
+				string dirname(cmd.getArg(1));
 				if (cmd.IsPathExist(cmd.getArg(1)))
 				{
 					const char *cd_path;
@@ -63,7 +59,6 @@ void MEShell::run() {
 
 		else
 		{
-			cout << "other";
 			char* program = cmd.getCommand();
 			int command_found = path.find(program);
 			if (command_found == -1)
@@ -80,9 +75,9 @@ void MEShell::run() {
 				int status;
 
 				char **args = cmd.getArgVector();
+				args[cmd.getArgCount()] = NULL;
 				if (c_pid == 0)
 				{
-					cout << "child proc" << endl;
 					execve(program_path.c_str(), args, NULL);
 
 					exit(0);
@@ -91,14 +86,10 @@ void MEShell::run() {
 				else if (c_pid > 0)
 				{
 					c_pid = waitpid(c_pid, &status, WUNTRACED | WCONTINUED);
-					cout << "child finished" << endl;
 				}
-				cout << "1";
 			}
-			cout << "2";
 		}
-		cout << "3";
 		cout << cmd.getCommand();
-//		cmd.~CommandLine();
+//		cmd.~CommandLine(); 
 	}
 }
