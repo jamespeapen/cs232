@@ -26,6 +26,7 @@ Path::Path() {
 /* return the index of the directory containing the program
  */ 
 int Path::find(const std::string& program) {
+	int index = -1;
 	DIR *dirptr; 
 	struct dirent *direntry;
 	for (unsigned i = 0; i < path_directories.size(); i++) {
@@ -35,13 +36,13 @@ int Path::find(const std::string& program) {
 			while(direntry = readdir(dirptr)) {
 		//		cout << direntry->d_name << endl;
 				if (direntry->d_name == program) {
-					return i;
+					index = i;
 				}
 			}
 		}
 		closedir(dirptr);
 	}
-	return -1;
+	return index;
 }
 
 /* return the name of the directory whose index is i
