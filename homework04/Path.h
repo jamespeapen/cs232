@@ -1,5 +1,5 @@
 /* Path.h declares a path class for MEShell to represent the directories in which it searches for executable programs
- * James Eapen (jpe4)
+ * Authors: James Eapen (jpe4), Valeria Martinez (vam6)
  * Date: 2020 March 9
  */
 

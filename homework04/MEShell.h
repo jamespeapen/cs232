@@ -1,4 +1,6 @@
 /* MEShell.h declares a class for the MEShell environment
+ * Authors: James Eapen (jpe4), Valeria Martinez (vam6)
+ * Date: 13 March 2020
  */
 
 #ifndef MESHELL_H_

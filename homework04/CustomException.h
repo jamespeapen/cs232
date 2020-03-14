@@ -1,9 +1,10 @@
 /* CustomException.h models customs exceptions.
- * Algorithm taken from: 
+ * Algorithm taken from:
  * Joel Adams, for CS 112 at Calvin College.
- * 
+ * Modified by: Valeria Martinez (vam6), James Eapen (jpe4)
  *
  */
+
 #ifndef CUSTOMEXCEPTION
 #define CUSTOMEXCEPTION
 #include <iostream>
