@@ -69,7 +69,6 @@ void MEShell::run() {
 			else
 			{
 				string program_path = path.get_directory(command_found) + "/" + program;
-				cout << program_path << endl;
 
 				pid_t c_pid = fork();
 				int status;
