@@ -16,13 +16,13 @@ MEShell::MEShell()
 void MEShell::run() {
 	while (true)
 	{
+		//update path
 		prompt.get_path();
 		cout << prompt.get_prompt();
-		CommandLine cmd = CommandLine(cin);
-		//char *command = cmd.getCommand();
-		//cout << command_str;
 
-		//if (command_str == "exit")
+		//take cin as istream and parse
+		CommandLine cmd = CommandLine(cin);
+		//built in fuctions exit, pwd, cd
 		if (strcmp(cmd.getCommand(), "exit") == 0) 
 		{
 			break;
@@ -36,6 +36,7 @@ void MEShell::run() {
 
 		else if (strcmp(cmd.getCommand(), "cd") == 0)
 		{
+			//catch non-existent dir errors
 			try
 			{
 				string dirname(cmd.getArg(1));
@@ -59,7 +60,8 @@ void MEShell::run() {
 		else
 		{
 			char* program = cmd.getCommand();
-
+			
+			//empty imput
 			if (program && !program[0]) {
 				continue;
 			}
@@ -79,6 +81,8 @@ void MEShell::run() {
 
 				char **args = cmd.getArgVector();
 				args[cmd.getArgCount()] = NULL;
+
+				//child process
 				if (c_pid == 0)
 				{
 					execve(program_path.c_str(), args, NULL);
@@ -86,12 +90,17 @@ void MEShell::run() {
 					exit(0);
 				}
 
+				//parent process
 				else if (c_pid > 0)
 				{
 					if (cmd.noAmpersand()) {
 						c_pid = waitpid(c_pid, &status, WUNTRACED | WCONTINUED);
 					}
 
+				}
+
+				else if (c_pid == -1) {
+					cout << "Fork failed" << endl;
 				}
 			}
 		}

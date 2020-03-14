@@ -1,7 +1,7 @@
 /* Function definitions for the MEShell command line prompt
- *  James Eapen (jpe4)
- *  Date: 2020 March 9
- */ 
+ * Authors: James Eapen (jpe4), Valeria Martinez (vam6)
+ * Date: 2020 March 9
+ */
 
 #include "Prompt.h"
 using std::cout;
@@ -26,6 +26,8 @@ std::string Prompt::get_prompt() const {
 	return prompt + "$ ";
 }
 
+/* refreshes the current path value and returns to caller
+ */
 std::string Prompt::get_path() {
 	get_current_dir();
 	return prompt;

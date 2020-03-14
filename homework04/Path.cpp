@@ -18,13 +18,12 @@ Path::Path() {
 		path_directories.push_back(path_tokens);
 		path_tokens = std::strtok(NULL, ":");
 	}
-	//for (unsigned i = 0; i < path_directories.size(); i++) {
-	//	cout << path_directories[i] << endl;
-	//}
 }
 
 /* return the index of the directory containing the program
- */ 
+ * @params: name of the program
+ * @returns: index of directory vector that contains the program
+ */
 int Path::find(const std::string& program) {
 	int index = -1;
 	DIR *dirptr; 
@@ -46,8 +45,9 @@ int Path::find(const std::string& program) {
 }
 
 /* return the name of the directory whose index is i
+ * @param: int index
+ * @returns: path string
  */
-
 std::string Path::get_directory(int i) const{
 	return path_directories[i];
 }
