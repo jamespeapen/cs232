@@ -60,6 +60,10 @@ void MEShell::run() {
 		else
 		{
 			char* program = cmd.getCommand();
+
+			if (program && !program[0]) {
+				continue;
+			}
 			int command_found = path.find(program);
 			if (command_found == -1)
 			{
@@ -84,7 +88,10 @@ void MEShell::run() {
 
 				else if (c_pid > 0)
 				{
-					c_pid = waitpid(c_pid, &status, WUNTRACED | WCONTINUED);
+					if (cmd.noAmpersand()) {
+						c_pid = waitpid(c_pid, &status, WUNTRACED | WCONTINUED);
+					}
+
 				}
 			}
 		}
