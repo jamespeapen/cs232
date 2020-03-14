@@ -1,0 +1,98 @@
+Script started on 2020-03-13 23:03:50-0400
+[1m[7m%[27m[1m[0m                                                                                                                                   ]2;james@tuxps: ~/Documents/Calvin/CS-232/cs232/homework04]1;..32/homework04[0m[27m[24m[J╭─[32mjames[39m[36m@[32mtuxps[39m [1m[34m~/Documents/Calvin/CS-232/cs232/homework04[39m[0m  [33m‹master*› [39m
+╰─[39m➤ [39m [K[?1h=[?2004h../mMEShell[1m [0m[0m [?1l>[?2004l
+]2;./MEShell]1;./MEShell/home/james/Documents/Calvin/CS-232/cs232/homework04$ ps &
+/home/james/Documents/Calvin/CS-232/cs232/homework04$   PID TTY          TIME CMD
+20090 pts/1    00:00:00 zsh
+20121 pts/1    00:00:00 MEShell
+20135 pts/1    00:00:00 ps
+
+/home/james/Documents/Calvin/CS-232/cs232/homework04$ ps
+  PID TTY          TIME CMD
+20090 pts/1    00:00:00 zsh
+20121 pts/1    00:00:00 MEShell
+20135 pts/1    00:00:00 ps <defunct>
+20139 pts/1    00:00:00 ps
+/home/james/Documents/Calvin/CS-232/cs232/homework04$ ls -la
+total 112
+drwxr-xr-x 2 james james  4096 Mar 13 23:03 .
+drwxrwxr-x 8 james james  4096 Mar 13 20:55 ..
+-rw-r--r-- 1 james james  6148 Mar 13 20:55 .DS_Store
+-rw-r--r-- 1 james james  1290 Mar 13 22:35 CommandLine.cpp
+-rw-r--r-- 1 james james  1072 Mar 13 22:35 CommandLine.h
+-rw-r--r-- 1 james james  1056 Mar 13 22:35 CustomException.h
+-rwxr-xr-x 1 james james 53256 Mar 13 22:35 MEShell
+-rw-r--r-- 1 james james  1950 Mar 13 22:35 MEShell.cpp
+-rw-r--r-- 1 james james   678 Mar 13 22:35 MEShell.h
+-rw-r--r-- 1 james james  1341 Mar 13 22:35 Path.cpp
+-rw-r--r-- 1 james james   572 Mar 13 22:35 Path.h
+-rw-r--r-- 1 james james   705 Mar 13 22:35 Prompt.cpp
+-rw-r--r-- 1 james james   385 Mar 13 22:18 Prompt.h
+-rw-r--r-- 1 james james   292 Mar 13 22:35 main.cpp
+-rw-r--r-- 1 james james     0 Mar 13 23:03 typescript
+/home/james/Documents/Calvin/CS-232/cs232/homework04$ cd /home/james/Desktop
+/home/james/Desktop$ pwd
+/home/james/Desktop
+/home/james/Desktop$ ls
+test
+/home/james/Desktop$ cp test test 2  2
+/home/james/Desktop$ ls
+test  test2
+/home/james/Desktop$ rm test test2
+/home/james/Desktop$ ls
+/home/james/Desktop$ ifocnfig
+ifocnfig: command not found
+/home/james/Desktop$ ifconfig
+lo: flags=73<UP,LOOPBACK,RUNNING>  mtu 65536
+        inet 127.0.0.1  netmask 255.0.0.0
+        inet6 ::1  prefixlen 128  scopeid 0x10<host>
+        loop  txqueuelen 1000  (Local Loopback)
+        RX packets 554  bytes 51332 (51.3 KB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 554  bytes 51332 (51.3 KB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+virbr0: flags=4099<UP,BROADCAST,MULTICAST>  mtu 1500
+        inet 192.168.122.1  netmask 255.255.255.0  broadcast 192.168.122.255
+        ether 52:54:00:6f:44:02  txqueuelen 1000  (Ethernet)
+        RX packets 0  bytes 0 (0.0 B)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 0  bytes 0 (0.0 B)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+wlp2s0: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+        inet 153.106.221.227  netmask 255.255.254.0  broadcast 153.106.221.255
+        inet6 fe80::31a8:1ed9:634d:b420  prefixlen 64  scopeid 0x20<link>
+        ether 9c:b6:d0:8c:64:69  txqueuelen 1000  (Ethernet)
+        RX packets 8973  bytes 5283829 (5.2 MB)
+        RX errors 0  dropped 0  overruns 0  frame 0
+        TX packets 5808  bytes 1257204 (1.2 MB)
+        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+
+/home/james/Desktop$ cd /home/james
+/home/james$ l
+l: command not found
+/home/james$ ls
+Desktop    Downloads  Pictures	R	   Videos	     fs.cpp	   scripts  sum.py
+Documents  Music      Public	Templates  examples.desktop  node_modules  snap
+/home/james$ cat sum.py
+l = []
+for i in range(5):
+    l.append(int(input("x: ")))
+print(sum(l))
+/home/james$ cd noni es xistn ent 
+The directory does not exist
+/home/james$ cd
+The directory does not exist
+/home/james$ cd ..
+/home$ ls
+james  lost+found
+/home$ cd james
+/home/james$ ls
+Desktop    Downloads  Pictures	R	   Videos	     fs.cpp	   scripts  sum.py
+Documents  Music      Public	Templates  examples.desktop  node_modules  snap
+/home/james$ exit
+[1m[7m%[27m[1m[0m                                                                                                                                   ]2;james@tuxps: ~/Documents/Calvin/CS-232/cs232/homework04]1;..32/homework04[0m[27m[24m[J╭─[32mjames[39m[36m@[32mtuxps[39m [1m[34m~/Documents/Calvin/CS-232/cs232/homework04[39m[0m  [33m‹master*› [39m
+╰─[39m➤ [39m [K[?1h=[?2004heexit[?1l>[?2004l
+]2;exit]1;exit
+Script done on 2020-03-13 23:05:31-0400
