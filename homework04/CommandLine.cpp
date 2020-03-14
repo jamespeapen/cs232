@@ -56,7 +56,7 @@ CommandLine::CommandLine(istream& in){
 }
 
 CommandLine::~CommandLine() {
-	for (int i = 0; i < commandLineWords.size(); i++) {
+	for (int i = 0; i < my_argc; i++) {
 		delete[] my_argv[i];
 	} 
 	delete[] my_argv;
