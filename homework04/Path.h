@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include <dirent.h>
+using namespace std;
 
 class Path {
 	public:
