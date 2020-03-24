@@ -1,2 +1,0 @@
-1. The PCB class is defined in 
-2. The PCB contains
