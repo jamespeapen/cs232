@@ -47,25 +47,49 @@ class CalOS:
         '''Called when the timer expires. If there is no process in the
         ready queue, reset the timer and continue.  Else, context_switch.
         '''
-        pass
+
+        #save current registers to current_procs pcb
+        CalOS.current_proc.set_registers(self._cpu.get_registers())
+        if len(self._ready_q) == 0:
+            self.reset_timer()
+            self._registers = {
+                'reg0' : 0,
+                'reg1' : 0,
+                'reg2' : 0,
+                'pc': 0
+                }
+            return
+        self.context_switch()
+        self.reset_timer()
 
     def context_switch(self):
         '''Do a context switch between the current_proc and the process
         on the front of the ready_q.
         '''
-        pass
+        new_pcb = self._ready_q[0]
+        CalOS.current_proc.set_registers(self._cpu.get_registers())
+        self._cpu.set_registers(new_pcb.get_registers())
+        self.add_to_ready_q(CalOS.current_proc)
+        new_pcb.set_state(PCB.RUNNING)
+        CalOS.current_proc = new_pcb
 
     def run(self):
         '''Startup the timer controller and execute processes in the ready
         queue on the given cpu -- i.e., run the operating system!
         '''
-        pass
+        print (len(self._ready_q))
+        print (CalOS.current_proc)
+        while len(self._ready_q) > 0:
+            CalOS.current_proc = self._ready_q.pop(0)
+            #del self._ready_q[0]
+            self.reset_timer()
+            self._cpu.set_registers(CalOS.current_proc.get_registers())
+            self._cpu.run()
 
     def reset_timer(self):
         '''Reset the timer's countdown to the value in the current_proc's
         PCB.'''
         self._timer_controller.set_countdown(CalOS.current_proc.get_quantum())
-        
 
 
 class PCB:
