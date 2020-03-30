@@ -78,8 +78,6 @@ class CalOS:
         '''Startup the timer controller and execute processes in the ready
         queue on the given cpu -- i.e., run the operating system!
         '''
-        print(len(self._ready_q))
-        print(CalOS.current_proc)
         while len(self._ready_q) > 0:
             CalOS.current_proc = self._ready_q.pop(0)
             self.reset_timer()
