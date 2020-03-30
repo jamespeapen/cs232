@@ -66,7 +66,8 @@ class CalOS:
         '''Do a context switch between the current_proc and the process
         on the front of the ready_q.
         '''
-        new_pcb = self._ready_q[0]
+        print("CONTEXT SWITCH-------------------------")
+        new_pcb = self._ready_q.pop(0)
         CalOS.current_proc.set_registers(self._cpu.get_registers())
         self._cpu.set_registers(new_pcb.get_registers())
         self.add_to_ready_q(CalOS.current_proc)
@@ -77,14 +78,14 @@ class CalOS:
         '''Startup the timer controller and execute processes in the ready
         queue on the given cpu -- i.e., run the operating system!
         '''
-        print (len(self._ready_q))
-        print (CalOS.current_proc)
+        print(len(self._ready_q))
+        print(CalOS.current_proc)
         while len(self._ready_q) > 0:
             CalOS.current_proc = self._ready_q.pop(0)
-            #del self._ready_q[0]
             self.reset_timer()
             self._cpu.set_registers(CalOS.current_proc.get_registers())
-            self._cpu.run()
+            self._cpu.run_process()
+            CalOS.current_proc.set_state(PCB.DONE)
 
     def reset_timer(self):
         '''Reset the timer's countdown to the value in the current_proc's
@@ -101,7 +102,7 @@ class PCB:
     # PID 0 is reserved for the IDLE process, which runs when there are no other
     # ready processes.
     next_pid = 1
-    
+
     def __init__(self, name, pid=None):
 
         self._name = name
@@ -147,7 +148,7 @@ class PCB:
 
     def set_registers(self, registers):
         self._registers = registers
-        
+  
     def get_registers(self):
         return self._registers
 
