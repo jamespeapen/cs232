@@ -1,0 +1,27 @@
+James Eapen (jpe4)
+Homework 05
+Add context switching to calos
+2020 March 30
+
+1. The PCB class is defined in calos.py.
+
+2. The PCB contains:
+	entry point
+	registers	
+	state
+	quantum
+	pid
+	memory limits
+	name	
+
+3. Line 179 in main.py creates the PCB for a process when a program is loaded into memory from tape.
+
+4. NEW, READY, RUNNING, WAITING, DONE 
+
+5. current_proc is defined in calos.py and it stores the value of the current process in memory. 
+
+6. It protects the setting of the timer till the controller fires.
+
+7. It sets an interrupt and adds the device to the list of devices that raised interrupts. It protects the interrupt and prevents another from being raised until the first interrupt is handled. 
+
+
