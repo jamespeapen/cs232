@@ -17,7 +17,7 @@
 
 #define MAX_CUSTOMERS 5
 #define N_CUSTOMERS  10
-#define TIME_TO_BAKE 2
+#define TIME_TO_BAKE 100000
 
 /** GLOBAL VARIABLES */
 
@@ -41,12 +41,15 @@ int n_customers_in_store = 0;
  */
 void *baking()
 {
+    sem_wait(&sem_baker);
     while(n_loaves < 10)
     {
         printf("Baker: Here I am baking a loaf of bread...\n");
         usleep(TIME_TO_BAKE);
         n_loaves++;
     }
+    printf("All loaves baked!\n");
+    sem_post(&sem_baker);
 }
 
 /**
@@ -67,6 +70,10 @@ void *buying()
  */
 int main() 
 {
+    // initialize semaphores
+    sem_init(&sem_baker, 0, 1);
+    sem_init(&sem_customer, 0, 1);
+
     printf("Busy Bakeshop is starting up...\n"); 
     printf("No. of loaves: %d\n", n_loaves);
     printf("No. of customers: %d\n", n_customers);
