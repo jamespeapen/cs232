@@ -20,7 +20,11 @@ sem_t sem_cashier;
 /**
  * Baking function
  */
-void *baking();
+void *baking()
+{
+    printf("baking...");
+}
+
 
 /**
  * Bakeshop driver
@@ -35,5 +39,9 @@ int main()
 
     pthread_t thread_baker;
     pthread_create(&thread_baker, NULL, baking, NULL);
+    pthread_join(thread_baker, NULL);
+
+    // exit after all threads have exited
+    pthread_exit(NULL);
 }
 
