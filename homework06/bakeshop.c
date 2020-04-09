@@ -4,8 +4,10 @@
  * @data: 2020 Apr 11
  * protect: no. of customers in the store 
  *          no. of loaves baked
+ *          customer status
  */
 
+#define _DEFAULT_SOURCE
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -13,18 +15,34 @@
 #include <time.h>
 #include <semaphore.h>
 
+#define MAX_CUSTOMERS 5
 #define N_CUSTOMERS  10
+#define TIME_TO_BAKE 2
+
+/** GLOBAL VARIABLES */
+
+// pthread identifiers
+pthread_t thread_baker;
+pthread_t thread_cashier;
+pthread_t ts[N_CUSTOMERS];      // customer thread array
 
 // semaphores
 sem_t sem_baker;
 sem_t sem_cashier;
+sem_t sem_customer;
+
+// counts
+int n_loaves = 0;
+int n_customers  = 0;
+int n_customers_in_store = 0;
 
 /**
  * Baking function
  */
 void *baking()
 {
-    printf("baking...");
+    printf("Baker: Here I am baking a loaf of bread...\n");
+    usleep(TIME_TO_BAKE);
 }
 
 /**
@@ -32,7 +50,11 @@ void *baking()
  */
 void *buying() 
 {
-    printf("buying");
+    if (n_customers < MAX_CUSTOMERS)
+    {
+    printf("buying\n");
+
+    }
 }
 
 /**
@@ -40,17 +62,10 @@ void *buying()
  */
 int main() 
 {
-    int n_loaves = 0;
-    int n_customers  = 0;
-    int n_customers_in_store = 0
 
     printf("Busy Bakeshop is starting up...\n"); 
     printf("No. of loaves: %d\n", n_loaves);
     printf("No. of customers: %d\n", n_customers);
-
-    pthread_t thread_baker;
-    pthread_t thread_cashier;
-    pthread_t ts[N_CUSTOMERS];      // customer thread array
 
     for (unsigned i = 0; i < N_CUSTOMERS; i++) 
     {
