@@ -2,6 +2,8 @@
  * Bakeshop program 
  * @author: James Eapen (jpe4)
  * @data: 2020 Apr 11
+ * protect: no. of customers in the store 
+ *          no. of loaves baked
  */
 
 
@@ -46,7 +48,7 @@ int main()
 
     pthread_t thread_baker;
     pthread_t thread_cashier;
-    pthread_t ts[N_CUSTOMERS];
+    pthread_t ts[N_CUSTOMERS];      // customer thread array
 
     for (unsigned i = 0; i < N_CUSTOMERS; i++) 
     {
