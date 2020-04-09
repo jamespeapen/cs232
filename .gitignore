@@ -1,6 +1,7 @@
 .push_auth
 homework01/__pycache__/*
 homework02/copy
+homework02/*.swp
 homework04/*.swp
 homework04/MEShell
 homework05/*.swp
