@@ -41,7 +41,7 @@ int n_customers_in_store = 0;
  */
 void *baking()
 {
-    while(n_available_loaves < 10)
+    while(n_loaves_baked < 10)
     {
         sem_wait(&sem_baker);
 
