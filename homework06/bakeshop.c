@@ -41,8 +41,12 @@ int n_customers_in_store = 0;
  */
 void *baking()
 {
-    printf("Baker: Here I am baking a loaf of bread...\n");
-    usleep(TIME_TO_BAKE);
+    while(n_loaves < 10)
+    {
+        printf("Baker: Here I am baking a loaf of bread...\n");
+        usleep(TIME_TO_BAKE);
+        n_loaves++;
+    }
 }
 
 /**
@@ -52,8 +56,9 @@ void *buying()
 {
     if (n_customers < MAX_CUSTOMERS)
     {
-    printf("buying\n");
-
+        n_customers_in_store++;
+        if (n_loaves > 0);
+            n_loaves--;
     }
 }
 
@@ -62,17 +67,17 @@ void *buying()
  */
 int main() 
 {
-
     printf("Busy Bakeshop is starting up...\n"); 
     printf("No. of loaves: %d\n", n_loaves);
     printf("No. of customers: %d\n", n_customers);
+
+    pthread_create(&thread_baker, NULL, baking, NULL);
+    pthread_join(thread_baker, NULL);
 
     for (unsigned i = 0; i < N_CUSTOMERS; i++) 
     {
         pthread_create(&ts[i], NULL, buying, NULL);
     }
-    pthread_create(&thread_baker, NULL, baking, NULL);
-    pthread_join(thread_baker, NULL);
 
     // exit after all threads have exited
     pthread_exit(NULL);
