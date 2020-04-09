@@ -11,7 +11,7 @@
 #include <time.h>
 #include <semaphore.h>
 
-#define N_CUSTOMERS = 10;
+#define N_CUSTOMERS  10
 
 // semaphores
 sem_t sem_baker;
@@ -25,6 +25,13 @@ void *baking()
     printf("baking...");
 }
 
+/**
+ * Buying function for customers
+ */
+void *buying() 
+{
+    printf("buying");
+}
 
 /**
  * Bakeshop driver
@@ -38,6 +45,13 @@ int main()
     printf("No. of customers: %d\n", n_customers);
 
     pthread_t thread_baker;
+    pthread_t thread_cashier;
+    pthread_t ts[N_CUSTOMERS];
+
+    for (unsigned i = 0; i < N_CUSTOMERS; i++) 
+    {
+        pthread_create(&ts[i], NULL, buying, NULL);
+    }
     pthread_create(&thread_baker, NULL, baking, NULL);
     pthread_join(thread_baker, NULL);
 
