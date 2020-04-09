@@ -41,15 +41,19 @@ int n_customers_in_store = 0;
  */
 void *baking()
 {
+    struct timespec tim1;
+    tim1.tv_sec = 1;
+    tim1.tv_nsec = 0;
+
     while(n_loaves_baked < 10)
     {
         sem_wait(&sem_baker);
 
         printf("Baker: Here I am baking a loaf of bread...\n");
-        usleep(TIME_TO_BAKE);
+        nanosleep(&tim1, &tim1);
         n_available_loaves++;
         n_loaves_baked++;
-        printf("Loaf %d baked\n", n_loaves_baked);
+        printf("Loaf %d baked. %d loaves available for sale\n", n_loaves_baked, n_available_loaves);
         
         sem_post(&sem_baker);
     }        
@@ -64,7 +68,24 @@ void *buying()
 {
     sem_wait(&sem_cashier);
 
+    if (n_available_loaves > 1)
+    {
+    }
     sem_post(&sem_cashier);
+}
+
+/** 
+ * Getting loaf
+ */
+void *get_loaf(int id) 
+{
+    sem_wait(&sem_customer); 
+    if (n_available_loaves > 1)
+    {
+        printf("loaf selected by Customer %d ", id);
+        n_available_loaves--;
+    }
+    sem_post(&sem_customer);
 }
 
 /**
@@ -75,19 +96,18 @@ int main()
     // initialize semaphores
     sem_init(&sem_baker, 0, 1);
     sem_init(&sem_cashier, 0 , 1);
-    sem_init(&sem_customer, 0, 1);
+    sem_init(&sem_customer, 0, 5);
 
     printf("Busy Bakeshop is starting up...\n"); 
-    printf("No. of loaves: %d\n", n_available_loaves);
-    printf("No. of customers: %d\n", n_customers);
 
     pthread_create(&thread_baker, NULL, baking, NULL);
-    pthread_join(thread_baker, NULL);
-
-    for (unsigned i = 0; i < N_CUSTOMERS; i++) 
+    pthread_create(&thread_cashier, NULL, buying, NULL);
+    for (int i = 0; i < N_CUSTOMERS; i++) 
     {
-        pthread_create(&ts[i], NULL, buying, NULL);
+        pthread_create(&ts[i], NULL, get_loaf, i);
+        pthread_join(ts[i], NULL);
     }
+    pthread_join(thread_baker, NULL);
 
     // exit after all threads have exited
     pthread_exit(NULL);
