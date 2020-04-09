@@ -42,6 +42,8 @@ int main()
 {
     int n_loaves = 0;
     int n_customers  = 0;
+    int n_customers_in_store = 0
+
     printf("Busy Bakeshop is starting up...\n"); 
     printf("No. of loaves: %d\n", n_loaves);
     printf("No. of customers: %d\n", n_customers);
