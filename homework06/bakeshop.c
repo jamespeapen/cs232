@@ -7,14 +7,13 @@
  *          customer status
  */
 
-#define _DEFAULT_SOURCE
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
 #include <time.h>
 #include <semaphore.h>
 
+// consts
 #define MAX_CUSTOMERS 5
 #define N_CUSTOMERS  10
 #define TIME_TO_BAKE 100000
@@ -32,7 +31,8 @@ sem_t sem_cashier;
 sem_t sem_customer;
 
 // counts
-int n_loaves = 0;
+int n_loaves_baked = 0;
+int n_available_loaves = 0;
 int n_customers  = 0;
 int n_customers_in_store = 0;
 
@@ -41,15 +41,20 @@ int n_customers_in_store = 0;
  */
 void *baking()
 {
-    sem_wait(&sem_baker);
-    while(n_loaves < 10)
+    while(n_available_loaves < 10)
     {
+        sem_wait(&sem_baker);
+
         printf("Baker: Here I am baking a loaf of bread...\n");
         usleep(TIME_TO_BAKE);
-        n_loaves++;
-    }
+        n_available_loaves++;
+        n_loaves_baked++;
+        printf("Loaf %d baked\n", n_loaves_baked);
+        
+        sem_post(&sem_baker);
+    }        
+    
     printf("All loaves baked!\n");
-    sem_post(&sem_baker);
 }
 
 /**
@@ -57,12 +62,9 @@ void *baking()
  */
 void *buying() 
 {
-    if (n_customers < MAX_CUSTOMERS)
-    {
-        n_customers_in_store++;
-        if (n_loaves > 0);
-            n_loaves--;
-    }
+    sem_wait(&sem_cashier);
+
+    sem_post(&sem_cashier);
 }
 
 /**
@@ -72,10 +74,11 @@ int main()
 {
     // initialize semaphores
     sem_init(&sem_baker, 0, 1);
+    sem_init(&sem_cashier, 0 , 1);
     sem_init(&sem_customer, 0, 1);
 
     printf("Busy Bakeshop is starting up...\n"); 
-    printf("No. of loaves: %d\n", n_loaves);
+    printf("No. of loaves: %d\n", n_available_loaves);
     printf("No. of customers: %d\n", n_customers);
 
     pthread_create(&thread_baker, NULL, baking, NULL);
