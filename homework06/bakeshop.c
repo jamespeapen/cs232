@@ -50,17 +50,17 @@ void *baking()
     {
         sem_wait(&sem_baker);
 
-        printf("Baker: Here I am baking a loaf of bread...\n");
+        fprintf(stderr, "Baker: Here I am baking a loaf of bread...\n");
         n_available_loaves++;
         n_loaves_baked++;
-        printf("Loaf %d baked. %d loaves available for sale\n", n_loaves_baked, n_available_loaves);
-        printf("\n");
+        fprintf(stderr, "Loaf %d baked. %d loaves available for sale\n", n_loaves_baked, n_available_loaves);
+        fprintf(stderr, "\n");
         
         sem_post(&sem_baker);
         nanosleep(&tim1, &tim1);
     }        
     
-    printf("All loaves baked!\n");
+    fprintf(stderr, "All loaves baked!\n");
 }
 
 /**
@@ -89,20 +89,19 @@ void *get_loaf(void *id)
             n_customers_in_store++;
             sem_post(&sem_store_capacity);
 
-            printf("Customer %d entered store\n", *(int *)id);
-            printf("%d\n", n_available_loaves);
+            fprintf(stderr, "Customer %d entered store\n", *(int *)id);
+            fprintf(stderr, "%d\n", n_available_loaves);
         }
 
         nanosleep(&tim1, &tim1);
 
-        printf("Customer %d waiting for loaf \n", *(int *)id);
+        fprintf(stderr, "Customer %d waiting for loaf \n", *(int *)id);
 
         while (n_available_loaves > 0)
         {
             sem_wait(&sem_customer); 
             n_available_loaves--;
-            printf("loaf selected by Customer %d. %d loaves left", *(int *)id, n_available_loaves);
-            printf("\n");
+            fprintf(stderr, "loaf selected by Customer %d. %d loaves left", *(int *)id, n_available_loaves);
             n_customers++;
             n_customers_in_store--;
             sem_post(&sem_customer);
@@ -121,7 +120,7 @@ int main()
     sem_init(&sem_customer, 0, 1);  // keep only 5 threads in store at a time
     sem_init(&sem_store_capacity, 0, 1);
 
-    printf("Busy Bakeshop is starting up...\n"); 
+    fprintf(stderr, "Busy Bakeshop is starting up...\n"); 
 
     pthread_create(&thread_baker, NULL, baking, NULL);
     pthread_create(&thread_cashier, NULL, buying, NULL);
