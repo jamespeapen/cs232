@@ -50,7 +50,7 @@ void *baking()
     {
         sem_wait(&sem_baker);
 
-        fprintf(stderr, "Baker: Here I am baking a loaf of bread...\n");
+        fprintf(stderr, "\nBaker: Here I am baking a loaf of bread...\n");
         n_available_loaves++;
         n_loaves_baked++;
         fprintf(stderr, "Loaf %d baked. %d loaves available for sale\n", n_loaves_baked, n_available_loaves);
@@ -81,33 +81,30 @@ void *get_loaf(void *id)
     tim1.tv_sec = 1;
     tim1.tv_nsec = 0;
 
-    while (n_customers_done < N_CUSTOMERS) {
-        while (n_customers_in_store < 5)
-        { 
-            // set store capacity
-            sem_wait(&sem_store_capacity);
-            n_customers_in_store++;
-            sem_post(&sem_store_capacity);
+//    while (n_customers_in_store == 5)
+//    {
+//        nanosleep(&tim1, &tim1);
+//    }
 
-            fprintf(stderr, "Customer %d entered store\n\n", *(int *)id);
-            fprintf(stderr, "%d\n", n_available_loaves);
-        }
+    sem_wait(&sem_customer);
+    n_customers_in_store++;
 
+    fprintf(stderr, "Customer %d entered store. Customers: %d \n", *(int*) id, n_customers_in_store);
+    while (n_available_loaves == 0)
+    {
         nanosleep(&tim1, &tim1);
-
-        fprintf(stderr, "Customer %d waiting for loaf \n", *(int *)id);
-
-        while (n_available_loaves > 0)
-        {
-            sem_wait(&sem_customer); 
-            n_available_loaves--;
-            fprintf(stderr, "loaf selected by Customer %d. %d loaves left\n", *(int *)id, n_available_loaves);
-            n_customers_done++;
-            n_customers_in_store--;
-            sem_post(&sem_customer);
-            pthread_join(customer_threads[*(int*) id], NULL);
-        }
     }
+    sem_wait(&sem_baker);
+        fprintf(stderr, "%d loaves available\n", n_available_loaves);
+        fprintf(stderr, "Customer %d got loaf\n", *(int*) id);
+        n_available_loaves--;
+        n_customers_done++;
+        n_customers_in_store--;
+    
+    sem_post(&sem_baker);
+
+    sem_post(&sem_customer);
+    nanosleep(&tim1, &tim1);
 }
 
 /**
@@ -118,7 +115,7 @@ int main()
     // initialize semaphores
     sem_init(&sem_baker, 0, 1);
     sem_init(&sem_cashier, 0 , 1);
-    sem_init(&sem_customer, 0, 1);  // keep only 5 threads in store at a time
+    sem_init(&sem_customer, 0, 5);  // keep only 5 threads in store at a time
     sem_init(&sem_store_capacity, 0, 1);
 
     fprintf(stderr, "Busy Bakeshop is starting up...\n"); 
