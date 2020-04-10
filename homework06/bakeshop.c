@@ -22,7 +22,7 @@
 // pthread identifiers
 pthread_t thread_baker;
 pthread_t thread_cashier;
-pthread_t ts[N_CUSTOMERS];      // customer thread array
+pthread_t customer_threads[N_CUSTOMERS];      // customer thread array
 
 // semaphores
 sem_t sem_baker;
@@ -33,7 +33,7 @@ sem_t sem_store_capacity;
 // counts
 int n_loaves_baked = 0;
 int n_available_loaves = 0;
-int n_customers  = 0;
+int n_customers_done  = 0;
 int n_customers_in_store = 0;
 
 /**
@@ -81,7 +81,7 @@ void *get_loaf(void *id)
     tim1.tv_sec = 1;
     tim1.tv_nsec = 0;
 
-    while (n_customers < N_CUSTOMERS) {
+    while (n_customers_done < N_CUSTOMERS) {
         while (n_customers_in_store < 5)
         { 
             // set store capacity
@@ -89,7 +89,7 @@ void *get_loaf(void *id)
             n_customers_in_store++;
             sem_post(&sem_store_capacity);
 
-            fprintf(stderr, "Customer %d entered store\n", *(int *)id);
+            fprintf(stderr, "Customer %d entered store\n\n", *(int *)id);
             fprintf(stderr, "%d\n", n_available_loaves);
         }
 
@@ -101,10 +101,11 @@ void *get_loaf(void *id)
         {
             sem_wait(&sem_customer); 
             n_available_loaves--;
-            fprintf(stderr, "loaf selected by Customer %d. %d loaves left", *(int *)id, n_available_loaves);
-            n_customers++;
+            fprintf(stderr, "loaf selected by Customer %d. %d loaves left\n", *(int *)id, n_available_loaves);
+            n_customers_done++;
             n_customers_in_store--;
             sem_post(&sem_customer);
+            pthread_join(customer_threads[*(int*) id], NULL);
         }
     }
 }
@@ -130,12 +131,12 @@ int main()
     {
         int *id = malloc(sizeof(*id));
         *id = i;
-        pthread_create(&ts[i], NULL, get_loaf, id);
+        pthread_create(&customer_threads[i], NULL, get_loaf, id);
     }
 
     for (int i = 0; i < N_CUSTOMERS; i++) 
     {
-        pthread_join(ts[i], NULL);
+        pthread_join(customer_threads[i], NULL);
     }
     pthread_join(thread_baker, NULL);
    // exit after all threads have exited
