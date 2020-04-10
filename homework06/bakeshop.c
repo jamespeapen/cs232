@@ -16,7 +16,6 @@
 // consts
 #define MAX_CUSTOMERS 5
 #define N_CUSTOMERS  10
-#define TIME_TO_BAKE 1000000
 
 /** GLOBAL VARIABLES */
 
@@ -55,6 +54,7 @@ void *baking()
         n_available_loaves++;
         n_loaves_baked++;
         printf("Loaf %d baked. %d loaves available for sale\n", n_loaves_baked, n_available_loaves);
+        printf("\n");
         
         sem_post(&sem_baker);
         nanosleep(&tim1, &tim1);
@@ -76,14 +76,35 @@ void *buying()
  */
 void *get_loaf(void *id) 
 {
-    if (n_customers_in_store < 5)
-    {
+    // nanosleep settings
+    struct timespec tim1;
+    tim1.tv_sec = 1;
+    tim1.tv_nsec = 0;
+
+    while (n_customers < N_CUSTOMERS) {
+        while (n_customers_in_store < 5)
+        { 
+            // set store capacity
+            sem_wait(&sem_store_capacity);
+            n_customers_in_store++;
+            sem_post(&sem_store_capacity);
+
+            printf("Customer %d entered store\n", *(int *)id);
+            printf("%d\n", n_available_loaves);
+        }
+
+        nanosleep(&tim1, &tim1);
+
         printf("Customer %d waiting for loaf \n", *(int *)id);
-        if (n_available_loaves > 1)
+
+        while (n_available_loaves > 0)
         {
             sem_wait(&sem_customer); 
             n_available_loaves--;
             printf("loaf selected by Customer %d. %d loaves left", *(int *)id, n_available_loaves);
+            printf("\n");
+            n_customers++;
+            n_customers_in_store--;
             sem_post(&sem_customer);
         }
     }
