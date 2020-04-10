@@ -16,7 +16,7 @@
 // consts
 #define MAX_CUSTOMERS 5
 #define N_CUSTOMERS  10
-#define TIME_TO_BAKE 100000
+#define TIME_TO_BAKE 1000000
 
 /** GLOBAL VARIABLES */
 
@@ -41,6 +41,7 @@ int n_customers_in_store = 0;
  */
 void *baking()
 {
+    // nanosleep settings
     struct timespec tim1;
     tim1.tv_sec = 1;
     tim1.tv_nsec = 0;
@@ -50,12 +51,12 @@ void *baking()
         sem_wait(&sem_baker);
 
         printf("Baker: Here I am baking a loaf of bread...\n");
-        nanosleep(&tim1, &tim1);
         n_available_loaves++;
         n_loaves_baked++;
         printf("Loaf %d baked. %d loaves available for sale\n", n_loaves_baked, n_available_loaves);
         
         sem_post(&sem_baker);
+        nanosleep(&tim1, &tim1);
     }        
     
     printf("All loaves baked!\n");
@@ -66,26 +67,25 @@ void *baking()
  */
 void *buying() 
 {
-    sem_wait(&sem_cashier);
 
-    if (n_available_loaves > 1)
-    {
-    }
-    sem_post(&sem_cashier);
 }
 
 /** 
  * Getting loaf
  */
-void *get_loaf(int id) 
+void *get_loaf(void *id) 
 {
-    sem_wait(&sem_customer); 
-    if (n_available_loaves > 1)
+    if (n_customers_in_store < 5)
     {
-        printf("loaf selected by Customer %d ", id);
-        n_available_loaves--;
+        printf("Customer %d waiting for loaf \n", *(int *)id);
+        if (n_available_loaves > 1)
+        {
+            sem_wait(&sem_customer); 
+            n_available_loaves--;
+            printf("loaf selected by Customer %d. %d loaves left", *(int *)id, n_available_loaves);
+            sem_post(&sem_customer);
+        }
     }
-    sem_post(&sem_customer);
 }
 
 /**
@@ -96,20 +96,27 @@ int main()
     // initialize semaphores
     sem_init(&sem_baker, 0, 1);
     sem_init(&sem_cashier, 0 , 1);
-    sem_init(&sem_customer, 0, 5);
+    sem_init(&sem_customer, 0, 1);  // keep only 5 threads in store at a time
 
     printf("Busy Bakeshop is starting up...\n"); 
 
     pthread_create(&thread_baker, NULL, baking, NULL);
     pthread_create(&thread_cashier, NULL, buying, NULL);
+
+    //customer threads
     for (int i = 0; i < N_CUSTOMERS; i++) 
     {
-        pthread_create(&ts[i], NULL, get_loaf, i);
+        int *id = malloc(sizeof(*id));
+        *id = i;
+        pthread_create(&ts[i], NULL, get_loaf, id);
+    }
+
+    for (int i = 0; i < N_CUSTOMERS; i++) 
+    {
         pthread_join(ts[i], NULL);
     }
     pthread_join(thread_baker, NULL);
-
-    // exit after all threads have exited
+   // exit after all threads have exited
     pthread_exit(NULL);
 }
 
