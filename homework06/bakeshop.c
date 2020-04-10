@@ -29,6 +29,7 @@ pthread_t ts[N_CUSTOMERS];      // customer thread array
 sem_t sem_baker;
 sem_t sem_cashier;
 sem_t sem_customer;
+sem_t sem_store_capacity;
 
 // counts
 int n_loaves_baked = 0;
@@ -97,6 +98,7 @@ int main()
     sem_init(&sem_baker, 0, 1);
     sem_init(&sem_cashier, 0 , 1);
     sem_init(&sem_customer, 0, 1);  // keep only 5 threads in store at a time
+    sem_init(&sem_store_capacity, 0, 1);
 
     printf("Busy Bakeshop is starting up...\n"); 
 
