@@ -51,8 +51,8 @@ void *baking()
         sem_wait(&sem_baker);
 
         fprintf(stderr, "\nBaker: Here I am baking a loaf of bread...\n");
-        n_available_loaves++;
         n_loaves_baked++;
+        n_available_loaves++;
         fprintf(stderr, "Loaf %d baked. %d loaves available for sale\n", n_loaves_baked, n_available_loaves);
         fprintf(stderr, "\n");
         
@@ -81,27 +81,22 @@ void *get_loaf(void *id)
     tim1.tv_sec = 1;
     tim1.tv_nsec = 0;
 
-//    while (n_customers_in_store == 5)
-//    {
-//        nanosleep(&tim1, &tim1);
-//    }
-
     sem_wait(&sem_customer);
     n_customers_in_store++;
-
     fprintf(stderr, "Customer %d entered store. Customers: %d \n", *(int*) id, n_customers_in_store);
+
+    sem_wait(&sem_cashier);
     while (n_available_loaves == 0)
     {
         nanosleep(&tim1, &tim1);
     }
-    sem_wait(&sem_baker);
         fprintf(stderr, "%d loaves available\n", n_available_loaves);
-        fprintf(stderr, "Customer %d got loaf\n", *(int*) id);
+        fprintf(stderr, "Customer %d got loaf and left. Customers: %d \n" , *(int*) id, n_customers_in_store);
         n_available_loaves--;
         n_customers_done++;
         n_customers_in_store--;
     
-    sem_post(&sem_baker);
+    sem_post(&sem_cashier);
 
     sem_post(&sem_customer);
     nanosleep(&tim1, &tim1);
