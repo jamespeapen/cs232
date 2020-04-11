@@ -1,10 +1,7 @@
 /**
- * Bakeshop program 
+ * Bakeshop that uses semaphores to control resources 
  * @author: James Eapen (jpe4)
- * @data: 2020 Apr 11
- * protect: no. of customers in the store 
- *          no. of loaves baked
- *          customer status
+ * @date: 2020 Apr 11
  */
 
 #include <stdio.h>
@@ -42,6 +39,7 @@ int customers_checking_out[10];
 
 /**
  * Baking function
+ * Needs release from cash register and releases after every loaf
  */
 void *baking()
 {
@@ -68,6 +66,10 @@ void *baking()
 
 /**
  * Buying function for customers
+ * while the max number of customers have not been checked out, 
+ * go to the queue and hold a customer, wait for the baker to come, 
+ * checkout every customer in queue as long as the are loaves to checkout
+ * release baker to bake
  */
 void *buying() 
 {
@@ -109,7 +111,12 @@ void *buying()
 }
 
 /** 
- * Getting loaf
+ * Getting loaf and exiting store
+ * @params: thread/customer id pointer
+ * allow one customer in at a time till max customers is reached
+ * each customer waits for a loaf and only one can get it at a time
+ * add customer with loaf to checkout line
+ * wait for checkout before allowing another customer in
  */
 void *get_in_get_loaf(void *id) 
 {
@@ -153,7 +160,7 @@ void *get_in_get_loaf(void *id)
         nanosleep(&tim1, &tim1);
     }
 
-    // allow only one customer to leave
+    // allow only one customer to leave at a time
     sem_wait(&sem_customer);
     n_customers_in_store--;
     fprintf(stderr, "Customer %d has left the bakeshop. Customers in the shop: %d\n", customer_id, n_customers_in_store);
@@ -168,13 +175,14 @@ void *get_in_get_loaf(void *id)
 
 /**
  * Bakeshop driver
+ * create the baker, cashier, and customer threads
  */
 int main() 
 {
     // initialize semaphores
     sem_init(&sem_baker, 0, 1);
     sem_init(&sem_customer, 0, 1);  // keep only 5 threads in store at a time
-    sem_init(&sem_store_capacity, 0, 5);
+    sem_init(&sem_store_capacity, 0, MAX_CUSTOMERS);
 
     fprintf(stderr, "Busy Bakeshop is starting up...\n"); 
 
