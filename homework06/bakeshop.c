@@ -190,14 +190,14 @@ int main()
     pthread_create(&thread_cashier, NULL, buying, NULL);
 
     //customer threads
-    for (int i = 100; i < 110; i++) 
+    for (int i = 0; i < N_CUSTOMERS; i++) 
     {
         int *id = malloc(sizeof(*id));
         *id = i;
         pthread_create(&customer_threads[i], NULL, get_in_get_loaf, id);
     }
 
-    for (int i = 100; i < 110; i++) 
+    for (int i = 0; i < N_CUSTOMERS; i++) 
     {
         pthread_join(customer_threads[i], NULL);
     }
