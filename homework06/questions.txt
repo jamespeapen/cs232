@@ -1,0 +1,19 @@
+Homework 6
+Busy Bakeshop
+2020 April 11
+James Eapen (jpe4)
+
+1. The program does not run the same way every time. The order in
+which the threads get to run are different in every run. This is 
+because the first thread that gets to its function and gets the 
+semaphore lock is able to execute, and the other threads have to 
+wait until it is released.
+
+2. There was no difference in with the higher priority setting.
+Although it has a higher priority and may get to its function 
+more often than the other threads, it still gets locked out of 
+critical sections and has to wait for lower priority threads to 
+release the semaphores before it can run again. If a lower priority
+thread got the semaphore, it would further be held back. This would 
+prevent it from having a real advantage with a higher priority
+setting.
