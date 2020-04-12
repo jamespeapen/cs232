@@ -1,0 +1,294 @@
+Script started on 2020-04-11 23:02:59-0400
+[01;32mjpe4@cs-ssh[00m:[01;34m/home/cs/232/current/jpe4/homework06[00m$ ls
+[0m[01;32mbakeshop[0m  bakeshop.c  questions.txt  typescript
+[01;32mjpe4@cs-ssh[00m:[01;34m/home/cs/232/current/jpe4/homework06[00m$ ./bakeshop 
+Busy Bakeshop is starting up...
+
+Baker: Here I am baking a loaf of bread...
+Loaf 1 baked. 1 loaves available for sale
+
+Customer 8 entered store. Customers: 1 
+Customer 8 has a loaf of bread
+
+Customer 7 entered store. Customers: 2 
+
+Customer 8 is waiting to be checked out
+
+Baker: Here I am baking a loaf of bread...
+Loaf 2 baked. 1 loaves available for sale
+Customer 7 has a loaf of bread
+
+Customer 4 entered store. Customers: 3 
+
+Baker: Here I am baking a loaf of bread...
+Loaf 3 baked. 1 loaves available for sale
+Customer 4 has a loaf of bread
+
+Customer 5 entered store. Customers: 4 
+
+Baker: Here I am baking a loaf of bread...
+Loaf 4 baked. 1 loaves available for sale
+Customer 5 has a loaf of bread
+
+Customer 6 entered store. Customers: 5 
+
+Baker: Here I am baking a loaf of bread...
+Loaf 5 baked. 1 loaves available for sale
+Customer 6 has a loaf of bread
+Baker comes to cash register
+Customer 8 has paid
+Baker has handed Customer 8 the receipt
+Customer 8 has received receipt
+Baker returns to bake
+
+Baker: Here I am baking a loaf of bread...
+Loaf 6 baked. 1 loaves available for sale
+
+Baker: Here I am baking a loaf of bread...
+Loaf 7 baked. 2 loaves available for sale
+
+Customer 7 is waiting to be checked out
+Baker comes to cash register
+Customer 7 has paid
+Baker has handed Customer 7 the receipt
+Customer 7 has received receipt
+Baker returns to bake
+
+Baker: Here I am baking a loaf of bread...
+Loaf 8 baked. 3 loaves available for sale
+
+Baker: Here I am baking a loaf of bread...
+Loaf 9 baked. 4 loaves available for sale
+
+Customer 4 is waiting to be checked out
+Baker comes to cash register
+Customer 4 has paid
+Baker has handed Customer 4 the receipt
+Customer 4 has received receipt
+Baker returns to bake
+
+Baker: Here I am baking a loaf of bread...
+Loaf 10 baked. 5 loaves available for sale
+
+All loaves baked!
+
+Customer 5 is waiting to be checked out
+Baker comes to cash register
+Customer 5 has paid
+Baker has handed Customer 5 the receipt
+Customer 5 has received receipt
+Baker returns to bake
+
+Customer 6 is waiting to be checked out
+Baker comes to cash register
+Customer 6 has paid
+Baker has handed Customer 6 the receipt
+Customer 6 has received receipt
+Baker returns to bake
+Customer 8 has left the bakeshop. Customers in the shop: 4
+
+Customer 3 entered store. Customers: 5 
+Customer 3 has a loaf of bread
+Customer 4 has left the bakeshop. Customers in the shop: 4
+Customer 7 has left the bakeshop. Customers in the shop: 3
+
+Customer 0 entered store. Customers: 4 
+Customer 0 has a loaf of bread
+
+Customer 9 entered store. Customers: 5 
+Customer 9 has a loaf of bread
+Customer 6 has left the bakeshop. Customers in the shop: 4
+
+Customer 1 entered store. Customers: 5 
+Customer 1 has a loaf of bread
+Customer 5 has left the bakeshop. Customers in the shop: 4
+
+Customer 2 entered store. Customers: 5 
+Customer 2 has a loaf of bread
+
+Customer 3 is waiting to be checked out
+Baker comes to cash register
+Customer 3 has paid
+Baker has handed Customer 3 the receipt
+Customer 3 has received receipt
+Baker returns to bake
+
+Customer 0 is waiting to be checked out
+Baker comes to cash register
+Customer 0 has paid
+Baker has handed Customer 0 the receipt
+Customer 0 has received receipt
+Baker returns to bake
+
+Customer 9 is waiting to be checked out
+Baker comes to cash register
+Customer 9 has paid
+Baker has handed Customer 9 the receipt
+Customer 9 has received receipt
+Baker returns to bake
+
+Customer 1 is waiting to be checked out
+Baker comes to cash register
+Customer 1 has paid
+Baker has handed Customer 1 the receipt
+Customer 1 has received receipt
+Baker returns to bake
+
+Customer 2 is waiting to be checked out
+Baker comes to cash register
+Customer 2 has paid
+Baker has handed Customer 2 the receipt
+Customer 2 has received receipt
+Baker returns to bake
+Customer 3 has left the bakeshop. Customers in the shop: 4
+Customer 9 has left the bakeshop. Customers in the shop: 3
+Customer 1 has left the bakeshop. Customers in the shop: 2
+Customer 2 has left the bakeshop. Customers in the shop: 1
+Customer 0 has left the bakeshop. Customers in the shop: 0
+[01;32mjpe4@cs-ssh[00m:[01;34m/home/cs/232/current/jpe4/homework06[00m$ ./bakeshop 
+Busy Bakeshop is starting up...
+
+Customer 5 entered store. Customers: 1 
+
+Baker: Here I am baking a loaf of bread...
+Loaf 1 baked. 1 loaves available for sale
+Customer 5 has a loaf of bread
+
+Customer 4 entered store. Customers: 2 
+
+Customer 5 is waiting to be checked out
+
+Baker: Here I am baking a loaf of bread...
+Loaf 2 baked. 1 loaves available for sale
+Customer 4 has a loaf of bread
+
+Customer 2 entered store. Customers: 3 
+
+Baker: Here I am baking a loaf of bread...
+Loaf 3 baked. 1 loaves available for sale
+Customer 2 has a loaf of bread
+
+Customer 3 entered store. Customers: 4 
+
+Baker: Here I am baking a loaf of bread...
+Loaf 4 baked. 1 loaves available for sale
+Customer 3 has a loaf of bread
+
+Customer 1 entered store. Customers: 5 
+
+Baker: Here I am baking a loaf of bread...
+Loaf 5 baked. 1 loaves available for sale
+Customer 1 has a loaf of bread
+
+Baker: Here I am baking a loaf of bread...
+Loaf 6 baked. 1 loaves available for sale
+Baker comes to cash register
+Customer 5 has paid
+Baker has handed Customer 5 the receipt
+Customer 5 has received receipt
+
+Baker: Here I am baking a loaf of bread...
+Loaf 7 baked. 2 loaves available for sale
+Baker returns to bake
+
+Baker: Here I am baking a loaf of bread...
+Loaf 8 baked. 3 loaves available for sale
+
+Baker: Here I am baking a loaf of bread...
+Loaf 9 baked. 4 loaves available for sale
+
+Customer 4 is waiting to be checked out
+Baker comes to cash register
+Customer 4 has paid
+Baker has handed Customer 4 the receipt
+Customer 4 has received receipt
+
+Baker: Here I am baking a loaf of bread...
+Loaf 10 baked. 5 loaves available for sale
+Baker returns to bake
+
+All loaves baked!
+
+Customer 2 is waiting to be checked out
+Baker comes to cash register
+Customer 2 has paid
+Baker has handed Customer 2 the receipt
+Customer 2 has received receipt
+Baker returns to bake
+
+Customer 3 is waiting to be checked out
+Baker comes to cash register
+Customer 3 has paid
+Baker has handed Customer 3 the receipt
+Customer 3 has received receipt
+Baker returns to bake
+
+Customer 1 is waiting to be checked out
+Baker comes to cash register
+Customer 1 has paid
+Baker has handed Customer 1 the receipt
+Customer 1 has received receipt
+Baker returns to bake
+Customer 4 has left the bakeshop. Customers in the shop: 4
+
+Customer 6 entered store. Customers: 5 
+Customer 6 has a loaf of bread
+Customer 1 has left the bakeshop. Customers in the shop: 4
+Customer 3 has left the bakeshop. Customers in the shop: 3
+
+Customer 7 entered store. Customers: 4 
+Customer 7 has a loaf of bread
+
+Customer 8 entered store. Customers: 5 
+Customer 8 has a loaf of bread
+Customer 5 has left the bakeshop. Customers in the shop: 4
+Customer 2 has left the bakeshop. Customers in the shop: 3
+
+Customer 0 entered store. Customers: 4 
+Customer 0 has a loaf of bread
+
+Customer 9 entered store. Customers: 5 
+Customer 9 has a loaf of bread
+
+Customer 6 is waiting to be checked out
+Baker comes to cash register
+Customer 6 has paid
+Baker has handed Customer 6 the receipt
+Customer 6 has received receipt
+Baker returns to bake
+
+Customer 7 is waiting to be checked out
+Baker comes to cash register
+Customer 7 has paid
+Baker has handed Customer 7 the receipt
+Customer 7 has received receipt
+Baker returns to bake
+
+Customer 8 is waiting to be checked out
+Baker comes to cash register
+Customer 8 has paid
+Baker has handed Customer 8 the receipt
+Customer 8 has received receipt
+Baker returns to bake
+
+Customer 0 is waiting to be checked out
+Baker comes to cash register
+Customer 0 has paid
+Baker has handed Customer 0 the receipt
+Customer 0 has received receipt
+Baker returns to bake
+
+Customer 9 is waiting to be checked out
+Baker comes to cash register
+Customer 9 has paid
+Baker has handed Customer 9 the receipt
+Customer 9 has received receipt
+Baker returns to bake
+Customer 6 has left the bakeshop. Customers in the shop: 4
+Customer 7 has left the bakeshop. Customers in the shop: 3
+Customer 8 has left the bakeshop. Customers in the shop: 2
+Customer 9 has left the bakeshop. Customers in the shop: 1
+Customer 0 has left the bakeshop. Customers in the shop: 0
+[01;32mjpe4@cs-ssh[00m:[01;34m/home/cs/232/current/jpe4/homework06[00m$ exit
+
+Script done on 2020-04-11 23:05:05-0400
