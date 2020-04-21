@@ -1,5 +1,6 @@
 import time
 import threading   # for Lock
+from ram import MMU
 
 MAX_CHARS_PER_ADDR = 4
 
@@ -36,6 +37,7 @@ class CPU:
             }
 
         self._ram = ram
+        self._mmu = MMU(ram)
         self._os = os
         self._debug = False
         # Set _stop to True to "power down" the CPU.
@@ -133,10 +135,9 @@ class CPU:
             if self._debug:
                 # print(self._registers)
                 print("CPU {}: executing code at [{}]: {}".format(self._num, self._registers['pc'],
-                                                          self._ram[self._registers['pc']]))
-
+                                                                  self._mmu.get_ram_val(self._registers['pc'])))
             # Execute the next instruction.
-            self.parse_instruction(self._ram[self._registers['pc']])
+            self.parse_instruction(self._mmu.get_ram_val(self._registers['pc']))
 
             if self._debug:
                 print(self)
@@ -274,7 +275,7 @@ class CPU:
         RAM at the addr, which might be decimal
         or hex.'''
         addr = eval(addr[1:])
-        return self._ram[addr]
+        return self._mmu.get_ram_val(addr)
 
     def _get_srcval(self, src):
         if self.isregister(src):
@@ -305,12 +306,12 @@ class CPU:
             self._registers[dst] = srcval
         elif dst[0] == '*':    # for *<register>
             if self.isregister(dst[1:]):
-                self._ram[self._registers[dst[1:]]] = srcval
+                self._mmu.set_ram_val(self._registers[dst[1:]], srcval)
             else:
                 print("Illegal instruction")
                 return
         else:   # assume dst holds a literal value
-            self._ram[eval(dst)] = srcval
+            self._mmu.set_ram_val(eval(dst), srcval)
 
     def handle_add(self, src, dst):
         srcval = self._get_srcval(src)
@@ -319,12 +320,14 @@ class CPU:
             self._registers[dst] += srcval
         elif dst[0] == '*':    # for *<register>
             if self.isregister(dst[1:]):
-                self._ram[self._registers[dst[1:]]] += srcval
+                temp_srcvall_add = self._mmu.get_ram_val(self._registers[dst[1:]]) + srcval
+                self._mmu.set_ram_val(self._registers[dst[1:]], temp_srcvall_add)
             else:
                 print("Illegal instruction")
                 return
         else:   # assume dst holds a literal value
-            self._ram[eval(dst)] += srcval
+            temp_srcvall_add = self._mmu.get_ram_val(eval(dst)) + srcval
+            self._mmu.set_ram_val(eval(dst), temp_srcvall_add)
 
                  
     def handle_sub(self, src, dst):
@@ -334,12 +337,14 @@ class CPU:
             self._registers[dst] -= srcval
         elif dst[0] == '*':    # for *<register>
             if self.isregister(dst[1:]):
-                self._ram[self._registers[dst[1:]]] -= srcval
+                temp_srcvall_diff = self._mmu.get_ram_val(self._registers[dst[1:]]) - srcval
+                self._mmu.set_ram_val(self._registers[dst[1:]], temp_srcvall_diff)
             else:
                 print("Illegal instruction")
                 return
         else:   # assume dst holds a literal value
-            self._ram[eval(dst)] -= srcval
+            temp_srcvall_diff = self._mmu.get_ram_val(eval(dst)) - srcval
+            self._mmu.set_ram_val(eval(dst), temp_srcvall_diff)
 
     def handle_call(self, fname):
         self._os.syscall(fname, self._reg0, self._reg1, self._reg2)
