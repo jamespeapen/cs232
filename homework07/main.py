@@ -183,6 +183,7 @@ class Monitor:
                 if self._debug:
                     print("Created PCB for process {}".format(procname))
                 addr = startaddr
+                pcb.set_low_mem(addr)
                 for line in f:
                     line = line.strip()
                     if line == '':
@@ -195,6 +196,8 @@ class Monitor:
                         addr += 1
                     elif line.startswith("__main:"):
                         self._handle_main_label(addr, line, pcb)
+                    elif line.startswith("__data:"):
+                        self._handle_data_label(addr, line, pcb)
                     else:   # the line is regular code: store it in ram
                         self._ram[addr] = line
                         addr += 1
@@ -220,6 +223,20 @@ class Monitor:
         pcb.set_entry_point(logical_addr)
         if self._debug:
             print("__main found at physical location", addr, "but logical addr", logical_addr)
+
+    def _handle_data_label(self, addr, line, pcb):
+        """line from the file has format __data: <addr>,
+        which indicates how much space the program needs.
+        the higher bound of memory is calculated for the 
+        physical memory to assign to the program
+        """
+        if len(line.split()) != 2:
+            raise ValueError("Illegal format: __data: must be followed by memory size")
+        num_bytes = int(line.split()[1])
+        high_addr = addr + num_bytes
+        pcb.set_high_mem(high_addr)
+        if self._debug:
+            print("__high memory found at physical location", addr, "but logical high addr", high_addr)
 
     def _write_program(self, startaddr, endaddr, tapename):
         '''Write memory from startaddr to endaddr to tape (a file).'''
