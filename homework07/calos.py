@@ -253,7 +253,7 @@ class PCB:
         return self._name
 
     def __str__(self):
-        return "PCB({}): {}, state {}, entrypoint {}".\
+        return "PCB({}): {}, state {}, entrypoint {}, low_mem {}, high_mem {}".\
                format(self._pid, self._name, self._state,
-                      self._entry_point)
+                      self._entry_point, self.get_low_mem(), self.get_high_mem())
     
