@@ -22,6 +22,8 @@ class MMU:
     '''Memory management unit'''
     def __init__(self, ram):
         self.ram = ram
+        self.reloc = 0
+        self.limit = 0
 
     def get_ram_val(self, addr):
         '''get value from memory'''
@@ -30,5 +32,18 @@ class MMU:
     def set_ram_val(self, addr, val):
         '''set a value in memory'''
         return self.ram.__setitem__(addr, val)
+    
+    def set_reloc_register(self, value):
+        '''set the relocation register'''
+        self.reloc = value
 
+    def set_limit_register(self, value):
+        '''set the limit register'''
+        self.limit = value
+    
+    def get_physical_addr(self, addr):
+        '''check if logical addr is valid'''
+        if addr >= self.limit:
+            raise ValueError("Bad address {}: too high".format(addr))
+        return addr + self.reloc
 
