@@ -104,7 +104,11 @@ class CPU:
         if registers == {}:
             raise ValueError
         self._registers = registers
-
+    
+    def set_mmu_registers(self, reloc, limit):
+        self._mmu.set_reloc_register(reloc)
+        self._mmu.set_limit_register(limit)
+        
     def isregister(self, s):
         return s in ('reg0', 'reg1', 'reg2', 'pc')
 
