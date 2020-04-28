@@ -27,13 +27,13 @@ class MMU:
 
     def get_ram_val(self, addr):
         '''get value from memory'''
-        if addr >= self.limit:
+        if self.reloc + addr > self.limit:
             raise ValueError("Bad address: ", addr, " is too high")
         return self.ram[addr + self.reloc]
 
     def set_ram_val(self, addr, val):
         '''set a value in memory'''
-        if addr >= self.limit:
+        if self.reloc + addr > self.limit:
             raise ValueError("Bad address: ", addr, " is too high")
         self.ram[addr + self.reloc] = val
 
