@@ -106,6 +106,8 @@ class CPU:
         self._registers = registers
     
     def set_mmu_registers(self, reloc, limit):
+        '''set the mmu relocation and limit registers
+        for address translation'''
         self._mmu.set_reloc_register(reloc)
         self._mmu.set_limit_register(limit)
         
