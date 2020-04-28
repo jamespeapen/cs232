@@ -220,7 +220,7 @@ class Monitor:
         if len(line.split()) != 2:
             raise ValueError("Illegal format: __main: must be followed by entrypoint address.")
         logical_addr = int(line.split()[1])
-        pcb.set_entry_point(logical_addr)
+        pcb.set_entry_point(addr)
         if self._debug:
             print("__main found at physical location", addr, "but logical addr", logical_addr)
 
@@ -233,10 +233,10 @@ class Monitor:
         if len(line.split()) != 2:
             raise ValueError("Illegal format: __data: must be followed by memory size")
         num_bytes = int(line.split()[1])
-        high_addr = addr + num_bytes
+        high_addr = addr + num_bytes - 1
         pcb.set_high_mem(high_addr)
         if self._debug:
-            print("__high memory found at physical location", addr, "but logical high addr", high_addr)
+            print("__high memory found at physical location", high_addr)
 
     def _write_program(self, startaddr, endaddr, tapename):
         '''Write memory from startaddr to endaddr to tape (a file).'''
