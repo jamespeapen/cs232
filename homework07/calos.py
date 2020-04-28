@@ -104,11 +104,11 @@ class CalOS:
 
         old_proc.set_registers(cpu.get_registers())
         cpu.set_registers(new_proc.get_registers())
-        cpu.set_mmu_registers(self._current_proc[cpu.get_num()].get_low_mem(), self._current_proc[cpu.get_num()].get_high_mem())
 
         self.add_to_ready_q(old_proc)
         new_proc.set_state(PCB.RUNNING)
         self._current_proc[cpu.get_num()] = new_proc
+        cpu.set_mmu_registers(self._current_proc[cpu.get_num()].get_low_mem(), self._current_proc[cpu.get_num()].get_high_mem())
 
 
     def reset_timer(self, cpu):
