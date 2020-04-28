@@ -220,7 +220,7 @@ class Monitor:
         if len(line.split()) != 2:
             raise ValueError("Illegal format: __main: must be followed by entrypoint address.")
         logical_addr = int(line.split()[1])
-        pcb.set_entry_point(addr)
+        pcb.set_entry_point(logical_addr)
         if self._debug:
             print("__main found at physical location", addr, "but logical addr", logical_addr)
 
