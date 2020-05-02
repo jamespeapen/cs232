@@ -7,11 +7,9 @@
  * server, and receives and displays the server response
  */
 
+import java.util.Scanner;
 import java.net.Socket;
 import java.net.SocketException;
-
-import sun.awt.image.InputStreamImageSource;
-
 import java.io.DataOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
