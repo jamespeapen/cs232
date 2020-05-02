@@ -21,8 +21,10 @@ public class CaesarClient {
     public static void main(String[] args) {
         System.out.println("Welcome to the Caesar Ciper Client");
         System.out.println("Enter the rotation amount: ");
-        int rotation;
-        
+
+        Scanner userInput = new Scanner(System.in);
+        int rotation = userInput.nextInt();
+        System.out.print("Rotation amount: " + rotation);
     }
 
 }
