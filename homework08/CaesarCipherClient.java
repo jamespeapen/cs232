@@ -21,9 +21,14 @@ public class CaesarCipherClient {
     public static void main(String[] args) {
         if (args.length !=2) {
             System.err.print("Usage: java CaesarCipherClient <hostname> <port>");
+            System.exit(1);
         }
 
+        String hostname = args[0];
+        int port = Integer.parseInt(args[1]);
+
         System.out.println("Welcome to the Caesar Ciper Client");
+        System.out.println("Connecting to " + hostname + " on port " + port);
         System.out.print("Enter the rotation amount: ");
 
         Scanner userInput = new Scanner(System.in);
