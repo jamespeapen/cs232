@@ -7,6 +7,7 @@
  * server, and receives and displays the server response
  */
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.net.Socket;
 import java.net.SocketException;
