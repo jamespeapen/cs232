@@ -10,6 +10,7 @@
 import java.util.Scanner;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.io.DataOutputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -28,12 +29,37 @@ public class CaesarCipherClient {
         int port = Integer.parseInt(args[1]);
 
         System.out.println("Welcome to the Caesar Ciper Client");
-        System.out.println("Connecting to " + hostname + " on port " + port);
         System.out.print("Enter the rotation amount: ");
 
         Scanner userInput = new Scanner(System.in);
         int rotation = userInput.nextInt();
-        System.out.print("Rotation amount: " + rotation);
-    }
 
+        try (
+            Socket CaesarScocket = new Socket(hostname, port);
+            DataOutputStream dataOut = new DataOutputStream(CaesarScocket.getOutputStream());
+            BufferedReader dataIn = new BufferedReader(new InputStreamReader(CaesarScocket.getInputStream()));
+            )
+        {
+            System.out.println("Connecting to " + hostname + " on port " + port);
+            dataOut.writeBytes(Integer.toString(rotation));
+            dataOut.flush();
+            System.out.println("sent rotation " + rotation);
+            String line;
+            System.out.println("reading");
+            System.out.println(dataIn.readLine());
+            while(dataIn.readLine() != null){
+                System.out.println("getting input");
+                line = dataIn.readLine();
+                System.out.println(line);
+            }
+        }
+        catch(UnknownHostException e) {
+            System.out.println("Error: " + hostname + " not known");
+            System.exit(1);
+        }
+        catch(IOException e) {
+            System.err.println("IO exception while connecting with " + hostname);
+            System.exit(1);
+        }
+    }
 }
