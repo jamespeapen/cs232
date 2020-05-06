@@ -19,42 +19,60 @@ import java.io.IOException;
 
 
 public class CaesarCipherClient {
-    
+
     public static void main(String[] args) {
         if (args.length !=2) {
             System.err.print("Usage: java CaesarCipherClient <hostname> <port>");
             System.exit(1);
         }
 
+        // get host and portNumber from args
         String hostname = args[0];
-        int port = Integer.parseInt(args[1]);
-
+        int port = 0;
+        try {
+            port = Integer.parseInt(args[1]);
+        }
+        catch (NumberFormatException e) {
+            System.err.println("Port number must be an integer");
+            System.exit(1);
+        }
+        
         System.out.println("Welcome to the Caesar Ciper Client");
-        System.out.print("Enter the rotation amount: ");
 
+        // get rotation
+        System.out.print("Enter the rotation amount between 1 and 25: ");
+        int rotation = 0;
         Scanner userInput = new Scanner(System.in);
-        int rotation = userInput.nextInt();
+        try {
+            rotation = userInput.nextInt();
+        }
+        catch (InputMismatchException e) {
+            System.out.println("rotation must be an integer");
+            System.exit(1);
+        }
 
+        // connect to server and communicate
         try (
             Socket CaesarScocket = new Socket(hostname, port);
             PrintWriter dataOut = new PrintWriter(CaesarScocket.getOutputStream(), true);
             BufferedReader dataIn = new BufferedReader(new InputStreamReader(CaesarScocket.getInputStream()));
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             )
-        {
+            {
               System.out.println("Connecting to " + hostname + " on port " + port);
               dataOut.println(String.valueOf(rotation));
               System.out.println(dataIn.readLine());
                 
               String line;
-              line = stdIn.readLine();
-              while ((line = stdIn.readLine()) != null) {
-                  System.out.println("line: " + line);
-                  if (line == "quit") {
-                      System.exit(0);
-                  }
+              System.out.print("Encrypt this: ");
+              while ((line = stdIn.readLine()) != null && line != "quit") {
+                  //if (line == "quit") { 
+                  //    System.out.println("exit");
+                  //    System.exit(0);
+                  //}
                   dataOut.println(line);
                   System.out.println("Server: " + dataIn.readLine());
+                  System.out.print("Encrypt this: ");
               }
             }
         catch(UnknownHostException e) {
