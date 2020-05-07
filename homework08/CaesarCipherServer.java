@@ -38,10 +38,9 @@ public class CaesarCipherServer {
             System.out.println("server is listening on port " + port);
 
             while (true) {
-                Socket clientSocket = serverSocket.accept();     
-                System.out.println("New client connected");
+                Socket clientSocket = serverSocket.accept(); 
+                System.out.println(new Date().toString() + ": New client connected: "+ clientSocket.getRemoteSocketAddress().toString());
                 new ServerThread(clientSocket).start();
-                System.out.println(new Date().toString());
             }
         } catch (IOException e) {
             System.out.println("IOException while listening on port "
@@ -69,6 +68,7 @@ public class ServerThread extends Thread {
                 writer.println(line);
             }
             socket.close();
+            System.out.println(new Date().toString() + ": " + socket.getRemoteSocketAddress().toString() + " disconected");
         }
         catch (IOException e) {
             System.err.println("IOException");
