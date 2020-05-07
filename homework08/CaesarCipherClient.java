@@ -64,17 +64,16 @@ public class CaesarCipherClient {
               dataOut.println(String.valueOf(rotation));
               System.out.println(dataIn.readLine());
                 
+              // take user input and receive server output
+              // quit when user enters quit
               String line;
-              System.out.print("Encrypt this: ");
-              while ((line = stdIn.readLine()) != null && line != "quit") {
-                  //if (line == "quit") { 
-                  //    System.out.println("exit");
-                  //    System.exit(0);
-                  //}
+              System.out.print("Enter text: ");
+              while ((line = stdIn.readLine()) != null && !line.equals("quit")) {
                   dataOut.println(line);
                   System.out.println("Server: " + dataIn.readLine());
-                  System.out.print("Encrypt this: ");
+                  System.out.print("Enter text: ");
               }
+              System.out.println("quitting client");
             }
         catch(UnknownHostException e) {
             System.out.println("Error: " + hostname + " not known");
