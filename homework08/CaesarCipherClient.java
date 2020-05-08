@@ -69,6 +69,7 @@ public class CaesarCipherClient {
             BufferedReader dataIn = new BufferedReader(new InputStreamReader(CaesarScocket.getInputStream()));
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             )
+
             {
               System.out.println("\nConnected to " + hostname + " on port " + port);
               System.out.println("\nType 'quit' to exit");
@@ -79,17 +80,21 @@ public class CaesarCipherClient {
               // quit when user enters quit
               String line;
               System.out.print("Enter text: ");
+
               while ((line = stdIn.readLine()) != null && !line.equals("quit")) {
                   dataOut.println(line);
                   System.out.println("Server: " + dataIn.readLine());
                   System.out.print("Enter text: ");
               }
+
               System.out.println("quitting client");
             }
+
         catch(UnknownHostException e) {
             System.out.println("Error: " + hostname + " not known");
             System.exit(1);
         }
+
         catch(IOException e) {
             System.err.println("IO exception while connecting with " + hostname);
             System.exit(1);
