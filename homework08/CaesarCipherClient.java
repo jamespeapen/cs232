@@ -39,17 +39,26 @@ public class CaesarCipherClient {
             System.exit(1);
         }
         
-        System.out.println("Welcome to the Caesar Ciper Client");
+        System.out.println("Welcome to the Caesar Cipher Client!");
+          System.out.println("Connecting to " + hostname + " on port " + port);
 
         // get rotation
-        System.out.print("Enter the rotation amount between 1 and 25: ");
+        System.out.print("\nEnter the rotation amount between 1 and 25: ");
         int rotation = 0;
         Scanner userInput = new Scanner(System.in);
+        
+        //check if entered value is int
         try {
             rotation = userInput.nextInt();
         }
         catch (InputMismatchException e) {
             System.out.println("rotation must be an integer");
+            System.exit(1);
+        }
+
+        // check if entered int is legal
+        if (rotation > 25 || rotation < 1) {
+            System.out.println("rotation must be between 1 and 25");
             System.exit(1);
         }
 
@@ -61,7 +70,8 @@ public class CaesarCipherClient {
             BufferedReader stdIn = new BufferedReader(new InputStreamReader(System.in));
             )
             {
-              System.out.println("Connecting to " + hostname + " on port " + port);
+              System.out.println("\nConnected to " + hostname + " on port " + port);
+              System.out.println("\nType 'quit' to exit");
               dataOut.println(String.valueOf(rotation));
               System.out.println(dataIn.readLine());
                 
