@@ -31,6 +31,7 @@ public class CaesarCipherServer {
          
         int port = Integer.parseInt(args[0]);
         Date date = new Date(); 
+
         try (
             ServerSocket serverSocket = new ServerSocket(port);
             ) 
@@ -43,6 +44,7 @@ public class CaesarCipherServer {
                         ": New client connected: "+ clientSocket.getRemoteSocketAddress().toString());
                 new ServerThread(clientSocket).start();
             }
+
         } catch (IOException e) {
             System.out.println("IOException while listening on port "
                 + port);
@@ -76,6 +78,7 @@ public class ServerThread extends Thread {
             if (rotation > 25 || rotation < 1) {
                 dataOut.print("Enter an integer between 1 and 25 inclusive. Disconnecting...");
                 socket.close();
+
             System.out.println(new Date().toString() + 
                     ": " + socket.getRemoteSocketAddress().toString() + " disconected: bad rotation");
             }
@@ -90,11 +93,13 @@ public class ServerThread extends Thread {
 
             //disconect client and log
             socket.close();
-            System.out.println(new Date().toString() + ": " + socket.getRemoteSocketAddress().toString() + " disconected");
+            System.out.println(new Date().toString() + 
+                    ": " + socket.getRemoteSocketAddress().toString() + " disconected");
+
+        } catch (IOException e) {
+            System.err.println("IOException: " + e.getMessage());
         }
-        catch (IOException e) {
-            System.err.println("IOException");
-        }
+        
     }
 
     /* Caesar Cipher Algorithm
