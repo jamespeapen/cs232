@@ -40,7 +40,7 @@ public class CaesarCipherClient {
         }
         
         System.out.println("Welcome to the Caesar Cipher Client!");
-          System.out.println("Connecting to " + hostname + " on port " + port);
+        System.out.println("Connecting to " + hostname + " on port " + port);
 
         // get rotation
         System.out.print("\nEnter the rotation amount between 1 and 25: ");
