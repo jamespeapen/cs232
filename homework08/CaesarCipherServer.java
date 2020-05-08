@@ -39,7 +39,8 @@ public class CaesarCipherServer {
 
             while (true) {
                 Socket clientSocket = serverSocket.accept(); 
-                System.out.println(new Date().toString() + ": New client connected: "+ clientSocket.getRemoteSocketAddress().toString());
+                System.out.println(new Date().toString() +
+                        ": New client connected: "+ clientSocket.getRemoteSocketAddress().toString());
                 new ServerThread(clientSocket).start();
             }
         } catch (IOException e) {
@@ -57,21 +58,82 @@ public class ServerThread extends Thread {
         this.socket = socket;
     }
 
+    /* Run the client connection threads
+     * Receives plaintext and transmits ciphertext
+     */
     public void run() {
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            PrintWriter writer = new PrintWriter(socket.getOutputStream(), true);
+            BufferedReader dataIn = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            PrintWriter dataOut = new PrintWriter(socket.getOutputStream(), true);
 
             String line;
+            
+            // get rotation from client
+            line = dataIn.readLine();
+            int rotation = Integer.valueOf(line);
 
-            while((line = reader.readLine()) != null && !line.equals("quit")) {
-                writer.println(line);
+            // check for legal rotation, log disconect
+            if (rotation > 25 || rotation < 1) {
+                dataOut.print("Enter an integer between 1 and 25 inclusive. Disconnecting...");
+                socket.close();
+            System.out.println(new Date().toString() + 
+                    ": " + socket.getRemoteSocketAddress().toString() + " disconected: bad rotation");
             }
+
+            // confirm rotation
+            dataOut.println("Encrypting with rotation: " + rotation);
+            
+            // encrypt and send line
+            while((line = dataIn.readLine()) != null && !line.equals("quit")) {
+                dataOut.println(encryptLine(line, rotation));
+            }
+
+            //disconect client and log
             socket.close();
             System.out.println(new Date().toString() + ": " + socket.getRemoteSocketAddress().toString() + " disconected");
         }
         catch (IOException e) {
             System.err.println("IOException");
         }
+    }
+
+    /* Caesar Cipher Algorithm
+     * Rotates the characters in the given string by rotation looping around the alphabet
+     */
+    private static String encryptLine(String line, int rotation) {
+
+        char ch;
+        String encryptedLine = "";
+
+        for(int i = 0; i < line.length(); ++i){
+			ch = line.charAt(i);
+
+            // lowercase chars between 'a' and 'z'
+			if(ch >= 'a' && ch <= 'z'){
+	            ch = (char)(ch + rotation);
+                
+                // if encrypted char is above 'z', loop around
+	            if(ch > 'z'){
+	                ch = (char)(ch - 'z' + 'a' - 1);
+	            }
+
+	            encryptedLine += ch;
+	        }
+
+            // uppercase
+	        else if(ch >= 'A' && ch <= 'Z'){
+	            ch = (char)(ch + rotation);
+
+	            if(ch > 'Z'){
+	                ch = (char)(ch - 'Z' + 'A' - 1);
+	            }
+
+	            encryptedLine += ch;
+	        }
+	        else {
+	        	encryptedLine += ch;
+	        }
+		}
+        return encryptedLine;
     }
 }
