@@ -24,13 +24,14 @@ public class CaesarCipherServer {
 
     public static void main(String[] args) {
 
+        // check args
         if (args.length != 1) {
             System.err.println("Usage: java CaesarCipherServer <port number>");
             System.exit(1);
         }
          
+        // get port
         int port = Integer.parseInt(args[0]);
-        Date date = new Date(); 
 
         try (
             ServerSocket serverSocket = new ServerSocket(port);
@@ -52,7 +53,8 @@ public class CaesarCipherServer {
         }
     }
 }
-        
+
+// multi-thread server that connects to clients        
 public class ServerThread extends Thread {
     private Socket socket;
 
@@ -74,7 +76,7 @@ public class ServerThread extends Thread {
             line = dataIn.readLine();
             int rotation = Integer.valueOf(line);
 
-            // check for legal rotation, log disconect
+            // check for legal rotation, log disconect if illegal
             if (rotation > 25 || rotation < 1) {
                 dataOut.print("Enter an integer between 1 and 25 inclusive. Disconnecting...");
                 socket.close();
