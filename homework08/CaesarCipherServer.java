@@ -6,6 +6,7 @@
  * Receives an int n and saves and returns it
  * Spawns new threads to handle clientsj
  * Citation: https://docs.oracle.com/javase/tutorial/networking/sockets/examples/EchoServer.java
+ *           https://www.codejava.net/java-se/networking/java-socket-server-examples-tcp-ip
  */
 
 import java.util.Scanner;
